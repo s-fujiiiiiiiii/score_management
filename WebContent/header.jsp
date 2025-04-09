@@ -8,12 +8,12 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>学生管理システム</title>
+    <title>得点管理システム</title>
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css'/>">
 </head>
 
 
 <!-- 上部タイトルエリア -->
 <div class="header-wrapper">
-    <h1>学生管理</h1>
+    <h1>得点管理システム</h1>
 </div>
