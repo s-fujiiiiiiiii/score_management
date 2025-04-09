@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
-
 /**
  * フロントコントローラ (Front Controller)
  * すべてのリクエストを一元管理し、適切なアクションクラスを実行する
