@@ -22,8 +22,9 @@
 	<div class="content-container">
 		<h1>学生情報登録</h1>
 
+	<form action="StudentCreate.action" method="post">
 			<label>入学年度<br>
-				<select name="courseId" required>
+				<select name="year" required>
 					<option value="">選択してください</option>
 					<option value="2023">2023年度</option>
 					<option value="2024">2024年度</option>
@@ -31,7 +32,7 @@
 			</label> <br>
 
 		 <label>学生番号<br>
-		 	<input type="text"id="studentName" name="studentName" required><br>
+		 	<input type="text"id="studentNum" name="studentNum" required><br>
 		 </label>
 
 		 <label>氏名<br>
@@ -47,6 +48,7 @@
 			</label><br>
 
            <input type="submit" value="登録して終了"><br>
+	</form>
 
            <a href="menu.jsp">戻る</a>
 	</div>
