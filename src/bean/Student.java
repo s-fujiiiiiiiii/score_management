@@ -3,28 +3,29 @@ package bean;
 import java.io.Serializable;
 
 public class Student implements Serializable {
-    private int enrollmentYear; // 入学年度
-    private String studentNumber; // 学生番号
-    private String name; // 氏名
-    private String className; // クラス名
-    private int score; // 得点
-    private boolean isEnrolled; // 在学状況
+    private int entYear; // 入学年度（ENT_YEAR）
+    private String studentNumber; // 学生番号（NO）
+    private String name; // 氏名（NAME）
+    private String classNum; // クラス番号（CLASS_NUM）
+    private String schoolCd; // 学校コード（SCHOOL_CD）
+    private boolean isAttend; // 出席状況（IS_ATTEND）
 
-    // コンストラクタ
+    // デフォルトコンストラクタ
     public Student() {}
 
-    public Student(int enrollmentYear, String studentNumber, String name, String className, int score, boolean isEnrolled) {
-        this.enrollmentYear = enrollmentYear;
+    // パラメータ付きコンストラクタ
+    public Student(int entYear, String studentNumber, String name, String classNum, String schoolCd, boolean isAttend) {
+        this.entYear = entYear;
         this.studentNumber = studentNumber;
         this.name = name;
-        this.className = className;
-        this.score = score;
-        this.isEnrolled = isEnrolled;
+        this.classNum = classNum;
+        this.schoolCd = schoolCd;
+        this.isAttend = isAttend;
     }
 
     // GetterとSetterメソッド
-    public int getEnrollmentYear() { return enrollmentYear; }
-    public void setEnrollmentYear(int enrollmentYear) { this.enrollmentYear = enrollmentYear; }
+    public int getEntYear() { return entYear; }
+    public void setEntYear(int entYear) { this.entYear = entYear; }
 
     public String getStudentNumber() { return studentNumber; }
     public void setStudentNumber(String studentNumber) { this.studentNumber = studentNumber; }
@@ -32,24 +33,25 @@ public class Student implements Serializable {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getClassName() { return className; }
-    public void setClassName(String className) { this.className = className; }
+    public String getClassNum() { return classNum; }
+    public void setClassNum(String classNum) { this.classNum = classNum; }
 
-    public int getScore() { return score; }
-    public void setScore(int score) { this.score = score; }
+    public String getSchoolCd() { return schoolCd; }
+    public void setSchoolCd(String schoolCd) { this.schoolCd = schoolCd; }
 
-    public boolean isEnrolled() { return isEnrolled; }
-    public void setEnrolled(boolean isEnrolled) { this.isEnrolled = isEnrolled; }
+    public boolean isAttend() { return isAttend; }
+    public void setAttend(boolean isAttend) { this.isAttend = isAttend; }
 
+    // toStringメソッド
     @Override
     public String toString() {
         return "Student{" +
-               "enrollmentYear=" + enrollmentYear +
+               "entYear=" + entYear +
                ", studentNumber='" + studentNumber + '\'' +
                ", name='" + name + '\'' +
-               ", className='" + className + '\'' +
-               ", score=" + score +
-               ", isEnrolled=" + isEnrolled +
+               ", classNum='" + classNum + '\'' +
+               ", schoolCd='" + schoolCd + '\'' +
+               ", isAttend=" + isAttend +
                '}';
     }
 }

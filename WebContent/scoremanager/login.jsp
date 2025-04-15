@@ -1,12 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@page contentType="text/html; charset=UTF-8" %>
+<%@include file="../header.jsp" %>
+
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン</title>
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+<%
+String errorMessage = (String) request.getAttribute("errorMessage");
+if (errorMessage != null) {
+%>
+    <p style="color:red;"><%= errorMessage %></p>
+<%
+}
+%>
 
+    <h2>ログイン画面</h2>
+    <form action="LoginAction" method="post">
+        <!-- ログインID -->
+        <label for="id">ログインID:</label>
+        <input type="text" id="id" name="id" maxlength="10" placeholder="半角でご入力ください" required>
+
+        <!-- パスワード -->
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" name="password" maxlength="30" placeholder="30文字以内の半角英数字でご入力ください" required>
+
+        <!-- パスワード表示/非表示 -->
+		<label> <input type="checkbox" id="chk_d_ps"
+			onclick="togglePassword()"> パスワードを表示
+		</label>
+
+		<!-- ログインボタン -->
+        <button type="submit" name="login" value="ログイン">ログイン</button>
+    </form>
+
+    <script>
+        // パスワードの表示/非表示を切り替える
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const checkbox = document.getElementById('chk_d_ps');
+            passwordField.type = checkbox.checked ? 'text' : 'password';
+        }
+    </script>
 </body>
 </html>
+
+<%@include file="../footer.jsp" %>

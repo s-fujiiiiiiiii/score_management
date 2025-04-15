@@ -20,21 +20,22 @@ public class StudentDao {
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM students")) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM STUDENT")) {
 
             while (resultSet.next()) {
                 Student student = new Student();
-                student.setEnrollmentYear(resultSet.getInt("enrollment_year"));
-                student.setStudentNumber(resultSet.getString("student_number"));
-                student.setName(resultSet.getString("name"));
-                student.setClassName(resultSet.getString("class_name"));
-                student.setScore(resultSet.getInt("score"));
-                student.setEnrolled(resultSet.getBoolean("is_enrolled"));
+                student.setEntYear(resultSet.getInt("ENT_YEAR"));
+                student.setStudentNumber(resultSet.getString("NO"));
+                student.setName(resultSet.getString("NAME"));
+                student.setClassNum(resultSet.getString("CLASS_NUM"));
+                student.setSchoolCd(resultSet.getString("SCHOOL_CD")); // 修正点
+                student.setAttend(resultSet.getBoolean("IS_ATTEND"));
                 students.add(student);
             }
         } catch (SQLException e) {
+            System.err.println("データベースから学生情報を取得中にエラーが発生しました: " + e.getMessage());
             e.printStackTrace();
         }
         return students;
     }
-}
+    }

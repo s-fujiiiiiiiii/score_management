@@ -1,0 +1,12 @@
+drop table TEACHER if exists;
+
+CREATE TABLE TEACHER (
+    ID VARCHAR(10) NOT NULL,
+    PASSWORD VARCHAR(30),
+    NAME VARCHAR(10),
+    SCHOOL_CD CHAR(3),
+    PRIMARY KEY (ID)
+);
+
+INSERT INTO TEACHER (ID, PASSWORD, NAME, SCHOOL_CD)
+VALUES ('admin', 'password', '大原花子', 'oom');

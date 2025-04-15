@@ -24,19 +24,19 @@
                     <th>学生番号</th>
                     <th>氏名</th>
                     <th>クラス</th>
-                    <th>得点</th>
-                    <th>在学</th>
+                    <th>学校コード</th>
+                    <th>出席</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="student" items="${studentList}">
+                <c:forEach var="STUDENT" items="${studentList}">
                     <tr>
-                        <td>${student.enrollmentYear}</td>
-                        <td>${student.studentNumber}</td>
-                        <td>${student.name}</td>
-                        <td>${student.className}</td>
-                        <td>${student.score}</td>
-                        <td>${student.enrolled ? '○' : '×'}</td>
+                        <td>${STUDENT.entYear}</td>
+                        <td>${STUDENT.studentNumber}</td>
+                        <td>${STUDENT.name}</td>
+                        <td>${STUDENT.classNum}</td>
+                        <td>${STUDENT.schoolCd}</td>
+                        <td>${STUDENT.attend ? '○' : '×'}</td>
                     </tr>
                 </c:forEach>
             </tbody>
