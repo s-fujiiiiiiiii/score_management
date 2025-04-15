@@ -16,4 +16,7 @@
 <!-- 上部タイトルエリア -->
 <div class="header-wrapper">
     <h1>得点管理システム</h1>
+     <div class="user-info">
+        <a href="../main/logout.jsp" class="logout-btn">ログアウト</a>
+    </div>
 </div>
