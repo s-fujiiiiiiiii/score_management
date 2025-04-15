@@ -50,6 +50,11 @@ body {
     padding-right: 50px;
 }
 
+.user-info {
+    text-align: right;
+    margin-right: 30px;
+}
+
 /* フッターエリアの中央揃え */
 .footer {
     width: 100%;

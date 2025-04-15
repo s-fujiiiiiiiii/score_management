@@ -27,6 +27,6 @@
      <%
      }
      %>
-        <a href="../main/logout.jsp" class="logout-btn">ログアウト</a>
+        <a href="../main/logout.jsp" >ログアウト</a>
     </div>
 </div>
