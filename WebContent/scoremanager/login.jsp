@@ -17,6 +17,7 @@
 <body>
 <%
 String errorMessage = (String) request.getAttribute("errorMessage");
+String enteredId = (String) request.getAttribute("enteredId");
 if (errorMessage != null) {
 %>
     <p style="color:red;"><%= errorMessage %></p>
@@ -28,7 +29,7 @@ if (errorMessage != null) {
     <form action="LoginAction" method="post">
         <!-- ログインID -->
         <label for="id">ログインID:</label>
-        <input type="text" id="id" name="id" maxlength="10" placeholder="半角でご入力ください" required>
+        <input type="text" id="id" name="id" value ="<%= enteredId != null ? enteredId : "" %>"maxlength="10" placeholder="半角でご入力ください" required>
 
         <!-- パスワード -->
         <label for="password">パスワード:</label>
