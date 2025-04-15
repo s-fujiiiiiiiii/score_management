@@ -10,10 +10,10 @@ body {
 /* 上部タイトルエリア */
 .header-wrapper {
     width: 100%;
-    background-color: #ddd;
-    padding: 15px;
-    text-align: center;
-    font-size: 24px;
+    background-color: #d0e7f9; /* もう少し青っぽい水色 */
+    padding: 1px 20px; /* 上下をさらに狭く、左右は少し控えめに */
+    text-align: left;
+    font-size: 15px;
     font-weight: bold;
     border-bottom: 1px solid #ccc;
 }
@@ -41,13 +41,27 @@ body {
     overflow-y: auto;
 }
 
+.menu-list {
+    list-style-type: none; /* 「・」を消す */
+}
+
+.menu-container {
+    border-right: 1px solid #ccc; /* メニューとコンテンツ間の縦線 */
+    padding-right: 50px;
+}
+
+.user-info {
+    text-align: right;
+    margin-right: 30px;
+}
+
 /* フッターエリアの中央揃え */
 .footer {
     width: 100%;
-    background-color: #ddd;
-    padding: 10px;
+    background-color: transparent; /* 色なし */
+    padding: 5px;
     text-align: center;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
 }

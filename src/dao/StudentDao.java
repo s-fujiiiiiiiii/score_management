@@ -29,7 +29,6 @@ public class StudentDao {
                 student.setStudentNumber(resultSet.getString("NO"));
                 student.setName(resultSet.getString("NAME"));
                 student.setClassNum(resultSet.getString("CLASS_NUM"));
-                student.setSchoolCd(resultSet.getString("SCHOOL_CD")); // 修正点
                 student.setAttend(resultSet.getBoolean("IS_ATTEND"));
                 students.add(student);
             }
