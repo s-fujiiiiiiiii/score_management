@@ -8,7 +8,7 @@ import java.sql.DriverManager;
  *
  * データベース接続を提供する。
  */
-public class Dao {
+public class DAO {
     /**
      * データベースへの接続を取得する
      *
