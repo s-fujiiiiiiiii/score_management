@@ -52,7 +52,6 @@ public class StudentDao {
                 statement.setString(2, student.getStudentNumber());
                 statement.setString(3, student.getName());
                 statement.setString(4, student.getClassNum());
-                statement.setString(5, student.getSchoolCd());  // 学校コード（必要に応じて追加）
                 statement.setBoolean(6, student.isAttend());
 
                 // SQL実行
