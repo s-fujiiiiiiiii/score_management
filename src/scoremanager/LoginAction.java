@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Teacher;
-import dao.TeacherDAO;
+import dao.TeacherDao;
 
 @WebServlet("/login")
 public class LoginAction extends HttpServlet {
@@ -21,7 +21,7 @@ public class LoginAction extends HttpServlet {
         String id = request.getParameter("id").trim();
         String password = request.getParameter("password").trim();
 
-        TeacherDAO dao = new TeacherDAO();
+        TeacherDao dao = new TeacherDao();
         Teacher teacher = null;
 		try {
 			teacher = dao.search(id, password);
