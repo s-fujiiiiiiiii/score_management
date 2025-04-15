@@ -1,0 +1,9 @@
+drop table SCHOOL if exists;
+
+CREATE TABLE SCHOOL (
+    CD CHAR(3) NOT NULL PRIMARY KEY,
+    NAME VARCHAR(20) NOT NULL
+);
+
+INSERT INTO SCHOOL (CD, NAME)
+VALUES ('oom', '学校名');
