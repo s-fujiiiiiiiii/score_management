@@ -22,11 +22,13 @@
 	<div class="content-container">
 		<h1>学生情報登録</h1>
 
-		<label>入学年度<br>
-			<select name="courseId" required>
-
-			</select>
-		</label> <br>
+			<label>入学年度<br>
+				<select name="courseId" required>
+					<option value="">選択してください</option>
+					<option value="2023">2023年度</option>
+					<option value="2024">2024年度</option>
+				</select>
+			</label> <br>
 
 		 <label>学生番号<br>
 		 	<input type="text"id="studentName" name="studentName" required><br>
@@ -36,11 +38,13 @@
 		 	<input type="text"id="studentName" name="studentName" required><br>
 		 </label>
 
-		 <label>クラス<br>
-		 	<select name="class" reqired>
-
-		 	</select>
-		 </label><br>
+			<label>クラス<br>
+				<select name="className" required>
+					<option value="">選択してください</option>
+					<option value="A">Aクラス</option>
+					<option value="B">Bクラス</option>
+				</select>
+			</label><br>
 
            <input type="submit" value="登録して終了"><br>
 
