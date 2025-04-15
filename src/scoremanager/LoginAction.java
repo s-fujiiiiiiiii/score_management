@@ -32,7 +32,7 @@ public class LoginAction extends HttpServlet {
 
         if (teacher != null) {
             session.setAttribute("teacher", teacher);
-            request.getRequestDispatcher("menu.jsp").forward(request, response);
+            request.getRequestDispatcher("main/menu.jsp").forward(request, response);
         } else if (id == null || id.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("errorMessage", "このフィールドを入力してください");
             request.getRequestDispatcher("login.jsp").forward(request, response);
