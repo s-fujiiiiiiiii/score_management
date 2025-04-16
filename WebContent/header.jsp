@@ -24,9 +24,10 @@
      if (teacher != null){
      %>
      	<p> <%= teacher.getId() %>様</p>
-     <%
+
+        <a href="../scoremanager/main/logout.jsp" class="logout-btn">ログアウト</a>
+        <%
      }
      %>
-        <a href="../scoremanager/main/logout.jsp" class="logout-btn">ログアウト</a>
     </div>
 </div>
