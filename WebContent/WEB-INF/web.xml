@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
-    xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
+	xmlns="https://xmlns.jcp.org/xml/ns/javaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
         https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd
         http://xmlns.jcp.org/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    version="3.1">
+	version="3.1">
 
-    <!-- 初期表示ページの設定 -->
-    <welcome-file-list>
-        <welcome-file>scoremanager/login.jsp</welcome-file>
-    </welcome-file-list>
+	<!-- 初期表示ページの設定 -->
+	<welcome-file-list>
+		<welcome-file>scoremanager/login.jsp</welcome-file>
+	</welcome-file-list>
 
-    <!-- デフォルト設定 -->
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+	<!-- デフォルト設定 -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 
-    <!-- 🔥 LoginActionサーブレットの追加 -->
-    <servlet>
-        <servlet-name>LoginAction</servlet-name>
-        <servlet-class>scoremanager.LoginAction</servlet-class>
-    </servlet>
+	<!-- 🔥 LoginActionサーブレットの追加 -->
+	<servlet>
+		<servlet-name>LoginAction</servlet-name>
+		<servlet-class>scoremanager.LoginAction</servlet-class>
+	</servlet>
 
-    <servlet-mapping>
-        <servlet-name>LoginAction</servlet-name>
-        <url-pattern>/scoremanager/LoginAction</url-pattern>
-    </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginAction</servlet-name>
+		<url-pattern>/scoremanager/LoginAction</url-pattern>
+	</servlet-mapping>
+
+	<!-- StudentCreateActionサーブレットの設定 -->
+	<servlet>
+		<servlet-name>StudentCreateAction</servlet-name>
+		<servlet-class>main.StudentCreateAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>StudentCreateAction</servlet-name>
+		<url-pattern>/StudentCreateAction.action</url-pattern>
+	</servlet-mapping>
 
 </web-app>
