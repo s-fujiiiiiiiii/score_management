@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/header.jsp" %>  <%-- ヘッダー --%>
 
@@ -17,11 +19,13 @@
     <!-- コンテンツエリア -->
     <div class="content-container">
         <h1>学生管理</h1>
-		<c:out value="${studentList}" />
+
+        <!-- 学生リストが空の場合のメッセージ -->
         <c:if test="${empty studentList}">
             <p>学生データがありません。</p>
         </c:if>
 
+        <!-- 学生リストがある場合のテーブル表示 -->
         <c:if test="${!empty studentList}">
             <table>
                 <thead>
@@ -34,6 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- ここでstudentListを繰り返し表示 -->
                     <c:forEach var="STUDENT" items="${studentList}">
                         <tr>
                             <td>${STUDENT.entYear}</td>
