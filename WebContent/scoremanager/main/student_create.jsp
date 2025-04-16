@@ -22,7 +22,7 @@
 	<div class="content-container">
 		<h1>学生情報登録</h1>
 
-	<form action="StudentCreate.action" method="post">
+	<form action="/score_management/main/StudentCreate.action" method="post">
 			<label>入学年度<br>
 				<select name="year" required>
 					<option value="">選択してください</option>
@@ -53,5 +53,3 @@
            <a href="menu.jsp">戻る</a>
 	</div>
 </div>
-
-<%@ include file="/footer.jsp"%>

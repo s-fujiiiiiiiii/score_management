@@ -37,7 +37,10 @@ public class FrontController extends HttpServlet {
             // 例: "/chapter23/Search.action" → "chapter23/Search.action"
 
             // ② パスをパッケージ名(action).アクションクラス名の形式に変換
-            String name = "action." + path.replace(".a", "A").replace('/', '.');
+         String className = path.replace(".action", "");
+         String baseName = className.replace('/', '.'); // ここでbaseNameを宣言して初期化
+         String name = baseName.endsWith("Action") ? baseName : baseName + "Action"; // name変数の重複宣言を修正
+
             // 例: "chapter23/Search.action" → "chapter23.SearchAction"
 
             System.out.println("アクションクラス名 : " + name);
