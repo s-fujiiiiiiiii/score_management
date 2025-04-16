@@ -53,3 +53,4 @@
            <a href="menu.jsp">戻る</a>
 	</div>
 </div>
+

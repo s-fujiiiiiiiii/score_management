@@ -1,24 +1,14 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import bean.Student;
 
 public class StudentDao extends Dao {
-
-
-
-private static final String URL = "jdbc:h2:~/test"; // データベースURL
-private static final String USER = "sa"; // データベースユーザー名
-private static final String PASSWORD = ""; // データベースパスワード
-
-
 
     public List<Student> getStudents() throws Exception {
         List<Student> students = new ArrayList<>();
@@ -53,21 +43,23 @@ private static final String PASSWORD = ""; // データベースパスワード
 
 
     public boolean insert(Student student) {
-        String sql = "INSERT INTO STUDENT (ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO STUDENT (NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = getConnection();  // ← JNDI経由に統一
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, student.getEntYear());
-            statement.setString(2, student.getStudentNumber());
-            statement.setString(3, student.getName());
+            System.out.println("学生の年度: " + student.getEntYear());
+
+            statement.setString(1, student.getStudentNumber());
+            statement.setString(2, student.getName());
+            statement.setInt(3, student.getEntYear());
             statement.setString(4, student.getClassNum());
             statement.setBoolean(5, student.isAttend());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {  // SQLException ではなく Exception にしてるのは getConnection() が例外を投げるため
             System.err.println("データベースに学生情報を挿入中にエラーが発生しました: " + e.getMessage());
             e.printStackTrace();
             return false;

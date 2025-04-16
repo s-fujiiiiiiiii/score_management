@@ -24,16 +24,16 @@ public class StudentCreateAction extends Action {
 
             // 登録成功時の処理
             if (result) {
-                return "student_create_done.jsp"; // 成功画面へ
+            	return "/scoremanager/main/student_create_done.jsp"; // 成功画面へ
             } else {
                 request.setAttribute("error", "登録に失敗しました。");
-                return "studentCreate.jsp"; // 元の画面に戻す
+                return "/scoremanager/main/student_create.jsp"; // 元の画面に戻す
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "エラーが発生しました。");
-            return "studentCreate.jsp"; // エラー時も元の画面に戻す
+            return "/scoremanager/main/student_create.jsp"; // エラー時も元の画面に戻す
         }
     }
 }
