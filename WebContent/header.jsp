@@ -27,6 +27,6 @@
      <%
      }
      %>
-        <a href="../main/logout.jsp" >ログアウト</a>
+        <a href="../scoremanager/main/logout.jsp" class="logout-btn">ログアウト</a>
     </div>
 </div>
