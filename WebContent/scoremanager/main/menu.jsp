@@ -8,8 +8,8 @@
 <!-- 左メニューエリア -->
 <div class="menu-container">
 	<ul class="menu-list">
-		<li><a href="../main/menu.jsp">メニュー</a></li>
-		<li><a href="../main/student_list.jsp">学生管理</a></li>
+		<li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
+		<li><a href="<c:url value='/student_list'/>">学生管理</a></li>
 		<li>成績管理</li>
 		<li><a href="<c:url value=''/>">成績登録</a></li>
 		<li><a href="<c:url value=''/>">成績参照</a></li>
