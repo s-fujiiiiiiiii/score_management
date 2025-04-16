@@ -13,9 +13,11 @@ import bean.Student;
 public class StudentDao extends Dao {
 
 
+
 private static final String URL = "jdbc:h2:~/test"; // データベースURL
 private static final String USER = "sa"; // データベースユーザー名
 private static final String PASSWORD = ""; // データベースパスワード
+
 
 
     public List<Student> getStudents() throws Exception {
@@ -47,6 +49,7 @@ private static final String PASSWORD = ""; // データベースパスワード
         System.out.println("取得した学生データの件数: " + students.size());
         return students;
     }
+
 
 
         public boolean insert(Student student) {
