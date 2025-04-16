@@ -3,21 +3,21 @@
 
 <div class="main-container">
     <!-- サイドメニュー -->
-<div class="menu-container">
-	<ul class="menu-list">
-		<li><a href="../main/menu.jsp">メニュー</a></li>
-		<li><a href="../main/student_list.jsp">学生管理</a></li>
-		<li>成績管理</li>
-		<li><a href="<c:url value=''/>">成績登録</a></li>
-		<li><a href="<c:url value=''/>">成績参照</a></li>
-		<li><a href="<c:url value=''/>">科目管理</a></li>
-	</ul>
-</div>
+    <div class="menu-container">
+        <ul class="menu-list">
+            <li><a href="../main/menu.jsp">メニュー</a></li>
+            <li><a href="../main/student_list.jsp">学生管理</a></li>
+            <li>成績管理</li>
+            <li><a href="<c:url value=''/>">成績登録</a></li>
+            <li><a href="<c:url value=''/>">成績参照</a></li>
+            <li><a href="<c:url value=''/>">科目管理</a></li>
+        </ul>
+    </div>
 
     <!-- コンテンツエリア -->
     <div class="content-container">
         <h1>学生管理</h1>
-
+		<c:out value="${studentList}" />
         <c:if test="${empty studentList}">
             <p>学生データがありません。</p>
         </c:if>
