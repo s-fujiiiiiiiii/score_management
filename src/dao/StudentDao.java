@@ -52,31 +52,25 @@ private static final String PASSWORD = ""; // データベースパスワード
 
 
 
-        public boolean insert(Student student) {
-            String sql = "INSERT INTO STUDENT (ENT_YEAR, NO, NAME, CLASS_NUM) VALUES (?, ?, ?, ?)";
+    public boolean insert(Student student) {
+        String sql = "INSERT INTO STUDENT (ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
 
-            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-                // SQLにパラメータを設定
-                statement.setInt(1, student.getEntYear());
-                statement.setString(2, student.getStudentNumber());
-                statement.setString(3, student.getName());
-                statement.setString(4, student.getClassNum());
+            statement.setInt(1, student.getEntYear());
+            statement.setString(2, student.getStudentNumber());
+            statement.setString(3, student.getName());
+            statement.setString(4, student.getClassNum());
+            statement.setBoolean(5, student.isAttend());
 
-                statement.setBoolean(6, student.isAttend());
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
 
-
-                // SQL実行
-                int rowsAffected = statement.executeUpdate();
-
-                // 挿入成功ならtrueを返す
-                return rowsAffected > 0;
-
-            } catch (SQLException e) {
-                System.err.println("データベースに学生情報を挿入中にエラーが発生しました: " + e.getMessage());
-                e.printStackTrace();
-                return false;  // 失敗した場合はfalseを返す
-            }
+        } catch (SQLException e) {
+            System.err.println("データベースに学生情報を挿入中にエラーが発生しました: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }

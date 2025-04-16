@@ -37,7 +37,8 @@ public class StudentListAction extends HttpServlet {
 
             // JSPへのフォワード
             System.out.println("JSP 'student_list.jsp' にフォワードします...");
-            request.getRequestDispatcher("/student_list.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/student_list.jsp").forward(request, response);
+
         } catch (Exception e) {
             System.err.println("サーブレット処理中にエラーが発生しました: " + e.getMessage());
             e.printStackTrace();
