@@ -16,14 +16,12 @@ public class H2DataChecker {
         try (Connection conn = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
              Statement stmt = conn.createStatement()) {
 
-            System.out.println("=== STUDENT テーブルのデータ ===");
             checkTable(stmt, "STUDENT"); // スキーマ名なし
-
-            System.out.println("=== COURSE テーブルのデータ ===");
-            checkTable(stmt, "COURSE"); // スキーマ名なし
-
-            System.out.println("=== H2 データベースのテーブル確認 ===");
-            checkDatabase(stmt);
+            checkTable(stmt, "SCHOOL"); // スキーマ名なし
+            checkTable(stmt,"CLASS_NUM");
+            checkTable(stmt,"SUBJECT");
+            checkTable(stmt,"TEACHER");
+            checkTable(stmt,"TEST");
 
         } catch (SQLException e) {
             e.printStackTrace();

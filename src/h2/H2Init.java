@@ -9,27 +9,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class H2Init {
-    // H2データベースのTCPモード接続
-    private static final String JDBC_URL = "jdbc:h2:~/score";
-    private static final String USER = "sa";
-    private static final String PASSWORD = "";
+    // H2データベースのファイル保存パス
+	private static final String JDBC_URL = "jdbc:h2:~/score"; // TCPモード
+	private static final String USER = "sa";
+	private static final String PASSWORD = "";
 
-    public static void main(String[] args) {
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, USER, PASSWORD)) {
-            System.out.println("✅ H2データベースに接続しました。");
+	public static void main(String[] args) {
+	    try (Connection conn = DriverManager.getConnection(JDBC_URL, USER, PASSWORD)) {
+	        System.out.println("H2データベース（TCPモード）に接続しました。");
 
-            // テーブル作成
-            executeSqlFile(conn, "src/resources/create.sql", true);
-            // データ挿入
-            executeSqlFile(conn, "src/resources/insert.sql", false);
+	        // SQLファイルを実行
+	        executeSqlFile(conn, "src/resources/CLASS_NUM.sql");
+	        executeSqlFile(conn, "src/resources/SCHOOL.sql");
+	        executeSqlFile(conn, "src/resources/STUDENT.sql");
+	        executeSqlFile(conn, "src/resources/SUBJECT.sql");
+	        executeSqlFile(conn, "src/resources/TEACHER.sql");
+	        executeSqlFile(conn, "src/resources/TEST.sql");
 
-            System.out.println("✅ データベースの初期化が完了しました！");
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
-    }
+	        System.out.println("データベースの初期化が完了しました！");
+	    } catch (SQLException | IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 
-    private static void executeSqlFile(Connection conn, String filePath, boolean isDDL) throws SQLException, IOException {
+    private static void executeSqlFile(Connection conn, String filePath) throws SQLException, IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
              Statement stmt = conn.createStatement()) {
 
@@ -39,19 +42,12 @@ public class H2Init {
             while ((line = reader.readLine()) != null) {
                 sql.append(line).append(" ");
                 if (line.trim().endsWith(";")) { // ";" が来たら実行
-                    String query = sql.toString().trim();
-                    System.out.println("▶ 実行するSQL: " + query);
-
-                    if (isDDL) {
-                        stmt.execute(query); // DDL（テーブル作成）は execute()
-                    } else {
-                        stmt.executeUpdate(query); // DML（データ挿入）は executeUpdate()
-                    }
+                    stmt.execute(sql.toString());
                     sql.setLength(0); // バッファをクリア
                 }
             }
 
-            System.out.println("✅ " + filePath + " のSQLを実行しました。");
+            System.out.println(filePath + " のSQLを実行しました。");
         }
     }
 }

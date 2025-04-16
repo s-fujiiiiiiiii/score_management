@@ -5,40 +5,48 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import bean.Student;
 
-public class StudentDao {
-    private static final String URL = "jdbc:h2:~/score"; // H2のデータベースパス
-    private static final String USER = "sa";
-    private static final String PASSWORD = "";
+public class StudentDao extends Dao {
 
-    public List<Student> getStudents() {
+
+private static final String URL = "jdbc:h2:~/test"; // データベースURL
+private static final String USER = "sa"; // データベースユーザー名
+private static final String PASSWORD = ""; // データベースパスワード
+
+
+    public List<Student> getStudents() throws Exception {
         List<Student> students = new ArrayList<>();
+        System.out.println("DAOメソッド 'getStudents()' が呼び出されました。");
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM STUDENT")) {
+        // JNDI接続でデータベースに接続
+        Connection connection = getConnection();
 
-            while (resultSet.next()) {
-                Student student = new Student();
-                student.setEntYear(resultSet.getInt("ENT_YEAR"));
-                student.setStudentNumber(resultSet.getString("NO"));
-                student.setName(resultSet.getString("NAME"));
-                student.setClassNum(resultSet.getString("CLASS_NUM"));
-                student.setAttend(resultSet.getBoolean("IS_ATTEND"));
-                students.add(student);
-            }
-        } catch (SQLException e) {
-            System.err.println("データベースから学生情報を取得中にエラーが発生しました: " + e.getMessage());
-            e.printStackTrace();
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND FROM STUDENT"
+        );
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            Student student = new Student();
+            student.setEntYear(resultSet.getInt("ENT_YEAR"));
+            student.setStudentNumber(resultSet.getString("NO"));
+            student.setName(resultSet.getString("NAME"));
+            student.setClassNum(resultSet.getString("CLASS_NUM"));
+            student.setAttend(resultSet.getBoolean("IS_ATTEND"));
+            students.add(student);
         }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+        System.out.println("取得した学生データの件数: " + students.size());
         return students;
     }
-
 
 
         public boolean insert(Student student) {
@@ -53,6 +61,9 @@ public class StudentDao {
                 statement.setString(3, student.getName());
                 statement.setString(4, student.getClassNum());
 
+                statement.setBoolean(6, student.isAttend());
+
+
                 // SQL実行
                 int rowsAffected = statement.executeUpdate();
 
@@ -65,4 +76,4 @@ public class StudentDao {
                 return false;  // 失敗した場合はfalseを返す
             }
     }
-    }
+}
