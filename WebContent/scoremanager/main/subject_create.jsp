@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<form action="SubjectCreateAction" method="post">
+<form action="/score_management/main/SubjectCreateAction" method="post">
     <label for="schoolCd">学校コード:</label>
     <input type="text" id="schoolCd" name="schoolCd" maxlength="3" required>
     <br>

@@ -31,7 +31,7 @@ public class SubjectCreateAction extends HttpServlet {
             dao.insert(subject); // insertメソッドを使用
 
             // 登録完了画面へリダイレクト
-            request.getRequestDispatcher("scoremanager/subject_create_done.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/subject_create_done.jsp").forward(request, response);
         } catch (Exception e) {
             throw new ServletException(e);
         }

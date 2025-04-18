@@ -19,7 +19,7 @@ public class SubjectListAction extends HttpServlet {
             SubjectDao dao = new SubjectDao();
             List<Subject> subjects = dao.search(""); // 空文字で全科目を検索
             request.setAttribute("subjects", subjects); // 科目リストをリクエストに保存
-            request.getRequestDispatcher("scoremanager/subject_list.jsp").forward(request, response); // JSPへ遷移
+            request.getRequestDispatcher("/scoremanager/main/subject_list.jsp").forward(request, response); // JSPへ遷移
         } catch (Exception e) {
         	e.printStackTrace();
             throw new ServletException(e);

@@ -18,7 +18,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<!-- 🔥 LoginActionサーブレットの追加 -->
+	<!--  LoginActionサーブレットの追加 -->
 	<servlet>
 		<servlet-name>LoginAction</servlet-name>
 		<servlet-class>scoremanager.LoginAction</servlet-class>
@@ -39,5 +39,36 @@
 		<servlet-name>StudentCreateAction</servlet-name>
 		<url-pattern>/StudentCreateAction.action</url-pattern>
 	</servlet-mapping>
+
+	<!-- SubjectCreateActionサーブレットの追加 -->
+	<servlet>
+    <servlet-name>SubjectCreateAction</servlet-name>
+    <servlet-class>main.SubjectCreateAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+    <servlet-name>SubjectCreateAction</servlet-name>
+    <url-pattern>/main/SubjectCreateAction</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+    <servlet-name>SubjectUpdateAction</servlet-name>
+    <servlet-class>main.SubjectUpdateAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+    <servlet-name>SubjectUpdateAction</servlet-name>
+    <url-pattern>/main/SubjectUpdateAction</url-pattern>
+	</servlet-mapping>
+	<servlet>
+    <servlet-name>SubjectDeleteAction</servlet-name>
+    <servlet-class>main.SubjectDeleteAction</servlet-class>
+	</servlet>
+
+<servlet-mapping>
+    <servlet-name>SubjectDeleteAction</servlet-name>
+    <url-pattern>/main/SubjectDeleteAction</url-pattern>
+</servlet-mapping>
+
 
 </web-app>
