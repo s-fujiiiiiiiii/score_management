@@ -1,12 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@page contentType="text/html; charset=UTF-8" %>
+<%@include file="../../header.jsp" %>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科目情報削除</title>
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-
+<p>「"${subject.name}"」を削除してもよろしいですか？</p>
+<form action="SubjectDeleteAction" method="post">
+    <input type="hidden" name="cd" value="${cd}">
+    <button type="submit">削除</button>
+    <a href="subject_list.jsp">キャンセル</a>
+</form>
 </body>
 </html>
+
+<%@include file="../../footer.jsp" %>
