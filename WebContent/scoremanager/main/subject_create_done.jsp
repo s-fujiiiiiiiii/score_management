@@ -17,7 +17,7 @@
 <body>
 <p>科目の登録が完了しました。</p>
 <br><br>
-<a href="subject_create.jsp">戻る</a>
+<a href="/score_management/scoremanager/main/subject_create.jsp">戻る</a>
 <a href="../SubjectListAction">科目一覧へ戻る</a>
 </body>
 </html>
