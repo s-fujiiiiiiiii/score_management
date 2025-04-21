@@ -3,24 +3,40 @@ package main;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.SubjectDao;
 
-@WebServlet("/SubjectDeleteAction")
+//@WebServlet("/SubjectDeleteAction")
 public class SubjectDeleteAction extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
         	String schoolCd = request.getParameter("schoolCd");
-            String cd = request.getParameter("cd");
-            SubjectDao dao = new SubjectDao();
-            dao.delete(schoolCd,cd); // 削除処理を実行
+        	String cd = request.getParameter("cd");
 
-            request.getRequestDispatcher("subject_delete_done.jsp").forward(request, response);
+        	// デバッグログを追加
+        	System.out.println("Request URL: " + request.getRequestURI());
+        	System.out.println("Query Parameters: " + request.getQueryString());
+        	System.out.println("schoolCd: " + schoolCd);
+        	System.out.println("cd: " + cd);
+
+        	if (schoolCd == null || cd == null || schoolCd.isEmpty() || cd.isEmpty()) {
+        	    throw new ServletException("リクエストパラメータが不足しています");
+        	}
+
+            SubjectDao dao = new SubjectDao();
+            int result = dao.delete(schoolCd, cd); // 削除処理を実行
+
+            if (result > 0) {
+                // 削除成功時に subject_delete_done.jsp へフォワード
+                request.getRequestDispatcher("/scoremanager/main/subject_delete_done.jsp").forward(request, response);
+            } else {
+                response.getWriter().println("削除に失敗しました");
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ServletException(e);
         }
     }
