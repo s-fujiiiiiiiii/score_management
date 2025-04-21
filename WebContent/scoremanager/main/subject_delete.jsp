@@ -29,7 +29,7 @@
         <input type="hidden" name="schoolCd" value="${subject.schoolCd}">
         <input type="hidden" name="cd" value="${subject.cd}">
         <button type="submit">削除</button>
-        <a href="/score_management/main/SubjectListActionp">キャンセル</a>
+        <a href="/score_management/main/SubjectListAction">キャンセル</a>
     </form>
 </c:if>
 

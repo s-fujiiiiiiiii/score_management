@@ -96,13 +96,15 @@ public class SubjectDao extends Dao {
     }
 
     	//科目削除メソッド
-    public int delete(String SchoolCd, String cd) throws Exception {
+    public int delete(String schoolCd, String cd) throws Exception {
     	Connection con = getConnection();
     	PreparedStatement st = con.prepareStatement(
     			"DELETE FROM SUBJECT WHERE SCHOOL_CD = ? AND CD = ?");
-    	st.setString(1, SchoolCd);
+    	st.setString(1, schoolCd);
     	st.setString(2, cd);
     	int line = st.executeUpdate();
+
+    	System.out.println("削除された行数: " + line);
 
     	st.close();
     	con.close();

@@ -33,7 +33,8 @@ public class SubjectDeleteAction extends HttpServlet {
                 // 削除成功時に subject_delete_done.jsp へフォワード
                 request.getRequestDispatcher("/scoremanager/main/subject_delete_done.jsp").forward(request, response);
             } else {
-                response.getWriter().println("削除に失敗しました");
+                request.setAttribute("errorMessage", "削除対象のデータが存在しません");
+                request.getRequestDispatcher("/score_management/main/SubjectListAction");
             }
         } catch (Exception e) {
             e.printStackTrace();

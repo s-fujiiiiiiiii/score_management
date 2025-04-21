@@ -17,7 +17,7 @@
 </head>
 <body>
 <h2>ログイン画面</h2>
-<a href="scoremanager/main/subject_create.jsp">新規登録</a>
+<a href="/score_management/scoremanager/main/subject_create.jsp">新規登録</a>
 
 <!--  <p>取得した科目数: ${fn:length(subjects)}</p>-->
 <table>
@@ -29,8 +29,8 @@
         <tr>
             <td>${subject.cd}</td>
             <td>${subject.name}</td>
-            <td><a href="scoremanager/main/subject_update.jsp?cd=${subject.cd}">変更</a></td>
-            <td><a href="scoremanager/main/subject_delete.jsp?cd=${subject.cd}">削除</a></td>
+            <td><a href="/score_management/scoremanager/main/subject_update.jsp?cd=${subject.cd}">変更</a></td>
+            <td><a href="/score_management/scoremanager/main/subject_delete.jsp?cd=${subject.cd}">削除</a></td>
         </tr>
     </c:forEach>
 </table>
