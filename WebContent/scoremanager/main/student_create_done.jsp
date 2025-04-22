@@ -20,7 +20,7 @@
 
 	<!-- 右コンテンツエリア -->
 	<div class="content-container">
-	成功
+		成功
 	</div>
-
+</div>
 <%@ include file="/footer.jsp"%>

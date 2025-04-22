@@ -21,7 +21,7 @@
 	<!-- 右コンテンツエリア -->
 	<div class="content-container">
 		<h1>学生情報登録</h1>
-
+ 
 	<form action="/score_management/main/StudentCreate.action" method="post">
 			<label>入学年度<br>
 				<select name="year" required>
@@ -53,3 +53,4 @@
            <a href="menu.jsp">戻る</a>
 	</div>
 </div>
+
