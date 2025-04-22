@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,26 +96,41 @@ public class StudentDao extends Dao {
         return yearList;
     }
 
-    // 登録（このメソッドはいじらない）
+    // 登録
     public boolean insert(Student student) {
-        String sql = "INSERT INTO STUDENT (ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = java.sql.DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        String sql = "INSERT INTO STUDENT (NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection connection = getConnection();  // ← JNDI経由に統一
+
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, student.getEntYear());
-            statement.setString(2, student.getStudentNumber());
-            statement.setString(3, student.getName());
+            System.out.println("学生の年度: " + student.getEntYear());
+
+            statement.setString(1, student.getStudentNumber());
+
+            statement.setString(2, student.getName());
+
+            statement.setInt(3, student.getEntYear());
+
             statement.setString(4, student.getClassNum());
+
             statement.setBoolean(5, student.isAttend());
 
             int rowsAffected = statement.executeUpdate();
+
             return rowsAffected > 0;
 
-        } catch (SQLException e) {
-            System.err.println("挿入エラー: " + e.getMessage());
+        } catch (Exception e) {  // SQLException ではなく Exception にしてるのは getConnection() が例外を投げるため
+
+            System.err.println("データベースに学生情報を挿入中にエラーが発生しました: " + e.getMessage());
+
             e.printStackTrace();
+
             return false;
+
         }
+
     }
+
 }
