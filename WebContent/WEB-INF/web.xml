@@ -48,6 +48,18 @@
 		<url-pattern>/main/SubjectDeleteAction</url-pattern>
 	</servlet-mapping>
 
+	<!-- StudentCreateActionサーブレットの設定 -->
+	<servlet>
+		<servlet-name>StudentCreateAction</servlet-name>
+		<servlet-class>main.StudentCreateAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>StudentCreateAction</servlet-name>
+		<url-pattern>/StudentCreateAction.action</url-pattern>
+	</servlet-mapping>
+
+
 
 
 </web-app>
