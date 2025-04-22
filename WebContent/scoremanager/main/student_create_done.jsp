@@ -6,21 +6,32 @@
 <!-- メニューとコンテンツを横並びに配置するコンテナ -->
 <div class="main-container">
 
-	<!-- 左メニューエリア -->
-	<div class="menu-container">
-		<ul class="menu-list">
-			<li><a href="<c:url value=''/>">メニュー</a></li>
-			<li><a href="<c:url value=''/>">学生管理</a></li>
-			<li><a href="<c:url value=''/>">成績管理</a></li>
-			<li><a href="<c:url value=''/>">成績登録</a></li>
-			<li><a href="<c:url value=''/>">成績参照</a></li>
-			<li><a href="<c:url value=''/>">科目管理</a></li>
-		</ul>
-	</div>
+    <!-- 左メニューエリア -->
+    <div class="menu-container">
+        <ul class="menu-list">
+		<li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
+		<li><a href="<c:url value='/student_list'/>">学生管理</a></li>
+		<li>成績管理</li>
+		<li><a href="<c:url value=''/>">成績登録</a></li>
+		<li><a href="<c:url value=''/>">成績参照</a></li>
+		<li><a href="<c:url value='/SubjectListAction'/>">科目管理</a></li>
+        </ul>
+    </div>
 
-	<!-- 右コンテンツエリア -->
-	<div class="content-container">
-		成功
-	</div>
+    <!-- 右コンテンツエリア -->
+    <div class="content-container">
+        <h1>学生情報登録</h1> <br>
+
+
+    	<div class="success">
+        	登録が完了しました
+    	</div> <br>
+
+    	<div class="return">
+        	<a href="menu.jsp">戻る</a>
+        	<a href="<c:url value='/student_list'/>">学生一覧</a>
+    	</div>
+
+    </div>
 </div>
 <%@ include file="/footer.jsp"%>
