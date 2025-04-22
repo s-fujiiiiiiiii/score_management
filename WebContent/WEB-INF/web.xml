@@ -38,6 +38,16 @@
 		<url-pattern>/main/SubjectCreateAction</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>SubjectDeleteAction</servlet-name>
+		<servlet-class>main.SubjectDeleteAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubjectDeleteAction</servlet-name>
+		<url-pattern>/main/SubjectDeleteAction</url-pattern>
+	</servlet-mapping>
+
 
 
 </web-app>
