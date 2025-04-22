@@ -142,4 +142,29 @@ public class SubjectDao extends Dao {
         // 科目データを返す
         return subject;
     }
+
+    public Subject findBySchoolCdAndCd(String schoolCd, String cd) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = con.prepareStatement(
+            "SELECT * FROM SUBJECT WHERE SCHOOL_CD = ? AND CD = ?" // 学校コードも条件に追加
+        );
+        st.setString(1, schoolCd);
+        st.setString(2, cd);
+
+        ResultSet rs = st.executeQuery();
+        Subject subject = null;
+
+        if (rs.next()) {
+            subject = new Subject();
+            subject.setSchoolCd(rs.getString("SCHOOL_CD"));
+            subject.setCd(rs.getString("CD"));
+            subject.setName(rs.getString("NAME"));
+        }
+
+        rs.close();
+        st.close();
+        con.close();
+
+        return subject;
+    }
 }

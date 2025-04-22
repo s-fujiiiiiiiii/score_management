@@ -29,7 +29,7 @@
         <tr>
             <td>${subject.cd}</td>
             <td>${subject.name}</td>
-            <td><a href="/score_management/scoremanager/main/subject_update.jsp?cd=${subject.cd}">変更</a></td>
+            <td><a href="/score_management/main/SubjectUpdateConfirmAction?schoolCd=${subject.schoolCd}&cd=${subject.cd}">変更</a></td>
             <td><a href="/score_management/main/SubjectDeleteConfirmAction?schoolCd=${subject.schoolCd}&cd=${subject.cd}">削除</a></td>
 
             <!--  <td><a href="/score_management/scoremanager/main/subject_delete.jsp?cd=${subject.cd}">削除</a></td>-->

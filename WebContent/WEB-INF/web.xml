@@ -18,7 +18,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<!--  LoginActionサーブレットの追加 -->
+	<!-- LoginActionサーブレットの追加 -->
 	<servlet>
 		<servlet-name>LoginAction</servlet-name>
 		<servlet-class>scoremanager.LoginAction</servlet-class>
@@ -42,44 +42,54 @@
 
 	<!-- SubjectCreateActionサーブレットの追加 -->
 	<servlet>
-    	<servlet-name>SubjectCreateAction</servlet-name>
-    	<servlet-class>main.SubjectCreateAction</servlet-class>
+		<servlet-name>SubjectCreateAction</servlet-name>
+		<servlet-class>main.SubjectCreateAction</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-    	<servlet-name>SubjectCreateAction</servlet-name>
-    	<url-pattern>/main/SubjectCreateAction</url-pattern>
+		<servlet-name>SubjectCreateAction</servlet-name>
+		<url-pattern>/main/SubjectCreateAction</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-    	<servlet-name>SubjectUpdateAction</servlet-name>
-    	<servlet-class>main.SubjectUpdateAction</servlet-class>
+		<servlet-name>SubjectUpdateAction</servlet-name>
+		<servlet-class>main.SubjectUpdateAction</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-    	<servlet-name>SubjectUpdateAction</servlet-name>
-    	<url-pattern>/main/SubjectUpdateAction</url-pattern>
+		<servlet-name>SubjectUpdateAction</servlet-name>
+		<url-pattern>/main/SubjectUpdateAction</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-    	<servlet-name>SubjectDeleteAction</servlet-name>
-    	<servlet-class>main.SubjectDeleteAction</servlet-class>
+		<servlet-name>SubjectDeleteAction</servlet-name>
+		<servlet-class>main.SubjectDeleteAction</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-    	<servlet-name>SubjectDeleteAction</servlet-name>
-    	<url-pattern>/main/SubjectDeleteAction</url-pattern>
+		<servlet-name>SubjectDeleteAction</servlet-name>
+		<url-pattern>/main/SubjectDeleteAction</url-pattern>
 	</servlet-mapping>
 
 	<!-- SubjectListActionサーブレットの追加 -->
 	<servlet>
-    	<servlet-name>SubjectListAction</servlet-name>
-    	<servlet-class>main.SubjectListAction</servlet-class>
+		<servlet-name>SubjectListAction</servlet-name>
+		<servlet-class>main.SubjectListAction</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-    	<servlet-name>SubjectListAction</servlet-name>
-    	<url-pattern>/main/SubjectListAction</url-pattern>
+		<servlet-name>SubjectListAction</servlet-name>
+		<url-pattern>/main/SubjectListAction</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SubjectUpdateAction</servlet-name>
+		<servlet-class>main.SubjectUpdateAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubjectUpdateAction</servlet-name>
+		<url-pattern>/main/SubjectUpdateAction</url-pattern>
 	</servlet-mapping>
 
 
