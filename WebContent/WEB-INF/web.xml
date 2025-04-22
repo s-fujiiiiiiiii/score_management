@@ -27,7 +27,16 @@
 		<url-pattern>/scoremanager/LoginAction</url-pattern>
 	</servlet-mapping>
 
+	<!-- SubjectCreateActionサーブレットの追加 -->
+	<servlet>
+		<servlet-name>SubjectCreateAction</servlet-name>
+		<servlet-class>main.SubjectCreateAction</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>SubjectCreateAction</servlet-name>
+		<url-pattern>/main/SubjectCreateAction</url-pattern>
+	</servlet-mapping>
 
 
 
