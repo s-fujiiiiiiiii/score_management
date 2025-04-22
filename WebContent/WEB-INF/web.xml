@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="https://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
-    xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
-        https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd
-        http://xmlns.jcp.org/xml/ns/javaee
-        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    version="3.1">
+<web-app xmlns="https://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
+         https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
 
 	<!-- 初期表示ページの設定 -->
 	<welcome-file-list>
@@ -30,58 +27,6 @@
 		<url-pattern>/scoremanager/LoginAction</url-pattern>
 	</servlet-mapping>
 
-	<!-- StudentCreateActionサーブレットの設定 -->
-	<servlet>
-		<servlet-name>StudentCreateAction</servlet-name>
-		<servlet-class>main.StudentCreateAction</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>StudentCreateAction</servlet-name>
-		<url-pattern>/StudentCreateAction.action</url-pattern>
-	</servlet-mapping>
-
-	<!-- SubjectCreateActionサーブレットの追加 -->
-	<servlet>
-		<servlet-name>SubjectCreateAction</servlet-name>
-		<servlet-class>main.SubjectCreateAction</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>SubjectCreateAction</servlet-name>
-		<url-pattern>/main/SubjectCreateAction</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>SubjectUpdateAction</servlet-name>
-		<servlet-class>main.SubjectUpdateAction</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>SubjectUpdateAction</servlet-name>
-		<url-pattern>/main/SubjectUpdateAction</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>SubjectDeleteAction</servlet-name>
-		<servlet-class>main.SubjectDeleteAction</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>SubjectDeleteAction</servlet-name>
-		<url-pattern>/main/SubjectDeleteAction</url-pattern>
-	</servlet-mapping>
-
-	<!-- SubjectListActionサーブレットの追加 -->
-	<servlet>
-		<servlet-name>SubjectListAction</servlet-name>
-		<servlet-class>main.SubjectListAction</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>SubjectListAction</servlet-name>
-		<url-pattern>/main/SubjectListAction</url-pattern>
-	</servlet-mapping>
 
 
 
