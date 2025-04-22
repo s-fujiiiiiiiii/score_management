@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet("/SubjectDeleteConfirmAction")
+@WebServlet("/main/SubjectDeleteConfirmAction")
 public class SubjectDeleteConfirmAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
