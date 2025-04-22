@@ -1,4 +1,4 @@
-package scoremanager;
+package main;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import bean.Teacher;
 import dao.TeacherDao;
 
-@WebServlet("/login")
+@WebServlet("/main/LoginAction")
 public class LoginAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,25 +23,26 @@ public class LoginAction extends HttpServlet {
 
         TeacherDao dao = new TeacherDao();
         Teacher teacher = null;
-		try {
-			teacher = dao.search(id, password);
-		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+        try {
+            teacher = dao.search(id, password);
+        } catch (Exception e) {
+            e.printStackTrace(); // Tomcatログに詳細を出力
+            request.setAttribute("errorMessage", "エラーが発生しました：" + e.getMessage());
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
+        }
 
         if (teacher != null) {
             session.setAttribute("teacher", teacher);
-            request.getRequestDispatcher("main/menu.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/menu.jsp").forward(request, response);
         } else
         	request.setAttribute("enteredId", id);
         	if (id == null || id.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("errorMessage", "このフィールドを入力してください");
-            request.getRequestDispatcher("main/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
         } else {
         	request.setAttribute("errorMessage", "IDまたはパスワードが確認できませんでした");
             request.setAttribute("enteredId", id); // 入力されたIDを保持
-            request.getRequestDispatcher("main/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/login.jsp").forward(request, response);
         }
     }
 
