@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet("/SubjectUpdateAction")
+@WebServlet("/main/SubjectUpdateAction")
 public class SubjectUpdateAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
