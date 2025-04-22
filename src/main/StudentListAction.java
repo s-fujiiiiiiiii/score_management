@@ -19,30 +19,28 @@ public class StudentListAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            System.out.println("サーブレット: 'StudentListAction' が呼び出されました。");
+            // パラメータ取得
+            String entYear = request.getParameter("entYear");
+            String classNum = request.getParameter("classNum");
+            String isAttend = request.getParameter("isAttend");
 
-            // DAOのインスタンス化
+            // DAO呼び出し
             StudentDao studentDao = new StudentDao();
+            List<Student> students = studentDao.getStudents(entYear, classNum, isAttend);
+            List<String> classList = studentDao.getClassList(); // クラス一覧取得
+            List<String> yearList = studentDao.getYearList();   // 年度一覧取得
 
-            // DAOメソッド呼び出し
-            System.out.println("DAOメソッド 'getStudents()' を呼び出します...");
-            List<Student> students = studentDao.getStudents();
-
-            // デバッグログ: 学生データ
-            System.out.println("取得した学生データの件数: " + students.size());
-            System.out.println("学生データ内容: " + students);
-
-            // JSPにデータを渡す
+            // リクエストスコープに設定
             request.setAttribute("studentList", students);
+            request.setAttribute("classList", classList);
+            request.setAttribute("yearList", yearList);  // 年度リストを追加
 
-            // JSPへのフォワード
-            System.out.println("JSP 'student_list.jsp' にフォワードします...");
+            // フォワード
             request.getRequestDispatcher("/scoremanager/main/student_list.jsp").forward(request, response);
 
         } catch (Exception e) {
-            System.err.println("サーブレット処理中にエラーが発生しました: " + e.getMessage());
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "エラーが発生しました。");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "データ取得中にエラーが発生しました");
         }
     }
 }

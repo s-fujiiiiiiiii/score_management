@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +11,33 @@ import bean.Student;
 
 public class StudentDao extends Dao {
 
-    public List<Student> getStudents() throws Exception {
+    // 学生一覧（絞込あり）
+    public List<Student> getStudents(String entYear, String classNum, String isAttend) throws Exception {
         List<Student> students = new ArrayList<>();
-        System.out.println("DAOメソッド 'getStudents()' が呼び出されました。");
-
-        // JNDI接続でデータベースに接続
         Connection connection = getConnection();
 
-        PreparedStatement statement = connection.prepareStatement(
-            "SELECT ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND FROM STUDENT"
-        );
+        StringBuilder sql = new StringBuilder("SELECT ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND FROM STUDENT WHERE 1=1");
+
+        if (entYear != null && !entYear.isEmpty()) {
+            sql.append(" AND ENT_YEAR = ?");
+        }
+        if (classNum != null && !classNum.isEmpty()) {
+            sql.append(" AND CLASS_NUM = ?");
+        }
+        if ("true".equals(isAttend)) {
+            sql.append(" AND IS_ATTEND = TRUE");
+        }
+
+        PreparedStatement statement = connection.prepareStatement(sql.toString());
+
+        int index = 1;
+        if (entYear != null && !entYear.isEmpty()) {
+            statement.setInt(index++, Integer.parseInt(entYear));
+        }
+        if (classNum != null && !classNum.isEmpty()) {
+            statement.setString(index++, classNum);
+        }
+
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
@@ -36,31 +54,67 @@ public class StudentDao extends Dao {
         statement.close();
         connection.close();
 
-        System.out.println("取得した学生データの件数: " + students.size());
         return students;
     }
 
+    // クラス一覧（重複なし）
+    public List<String> getClassList() throws Exception {
+        List<String> classList = new ArrayList<>();
+        Connection connection = getConnection();
 
+        String sql = "SELECT DISTINCT CLASS_NUM FROM STUDENT ORDER BY CLASS_NUM";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
 
+        while (resultSet.next()) {
+            classList.add(resultSet.getString("CLASS_NUM"));
+        }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+        return classList;
+    }
+
+    // 年度一覧（重複なし）
+    public List<String> getYearList() throws Exception {
+        List<String> yearList = new ArrayList<>();
+        Connection connection = getConnection();
+
+        String sql = "SELECT DISTINCT ENT_YEAR FROM STUDENT ORDER BY ENT_YEAR";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            yearList.add(resultSet.getString("ENT_YEAR"));
+        }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+        return yearList;
+    }
+
+    // 登録（このメソッドはいじらない）
     public boolean insert(Student student) {
-        String sql = "INSERT INTO STUDENT (NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO STUDENT (ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = getConnection();  // ← JNDI経由に統一
+        try (Connection connection = java.sql.DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            System.out.println("学生の年度: " + student.getEntYear());
-
-            statement.setString(1, student.getStudentNumber());
-            statement.setString(2, student.getName());
-            statement.setInt(3, student.getEntYear());
+            statement.setInt(1, student.getEntYear());
+            statement.setString(2, student.getStudentNumber());
+            statement.setString(3, student.getName());
             statement.setString(4, student.getClassNum());
             statement.setBoolean(5, student.isAttend());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
-        } catch (Exception e) {  // SQLException ではなく Exception にしてるのは getConnection() が例外を投げるため
-            System.err.println("データベースに学生情報を挿入中にエラーが発生しました: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("挿入エラー: " + e.getMessage());
             e.printStackTrace();
             return false;
         }

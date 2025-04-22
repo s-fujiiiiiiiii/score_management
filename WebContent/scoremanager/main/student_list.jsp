@@ -18,9 +18,32 @@
 
     <!-- コンテンツエリア -->
     <div class="content-container">
-        <h1>学生管理</h1>  <a href="<c:url value='/student_create'/>">
+        <h1>学生管理</h1>
+<form method="get" action="<c:url value='/student_list' />">
+    入学年度:
+    <select name="entYear">
+        <option value="">-- 全て --</option>
+        <c:forEach var="year" items="${yearList}">
+            <option value="${year}" ${param.entYear == year ? "selected" : ""}>${year}</option>
+        </c:forEach>
+    </select>
+    クラス:
+    <select name="classNum">
+        <option value="">-- 全て --</option>
+        <c:forEach var="c" items="${classList}">
+            <option value="${c}" ${param.classNum == c ? "selected" : ""}>${c}</option>
+        </c:forEach>
+    </select>
+    在学中:
+    <input type="checkbox" name="isAttend" value="true" ${param.isAttend == 'true' ? 'checked' : ''} />
+    <input type="submit" value="絞り込む" />
+</form>
+
+
+        <a href="<c:url value='/student_create'/>">
     <button type="button">新規登録</button>
 </a>
+
 
 
         <!-- 学生リストが空の場合のメッセージ -->
