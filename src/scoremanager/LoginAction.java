@@ -1,4 +1,4 @@
-package main;
+package scoremanager;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import bean.Teacher;
 import dao.TeacherDao;
 
-@WebServlet("/main/LoginAction")
+@WebServlet("/login")
 public class LoginAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

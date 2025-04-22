@@ -1,5 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8" %>
-<%@include file="../../header.jsp" %>
+<%@include file="../header.jsp" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -26,7 +26,7 @@ if (errorMessage != null) {
 %>
 
     <h2>ログイン画面</h2>
-    <form action="/scoremanager/LoginAction" method="post">
+    <form action="LoginAction" method="post">
         <!-- ログインID -->
         <label for="id">ログインID:</label>
         <input type="text" id="id" name="id" value ="<%= enteredId != null ? enteredId : "" %>"maxlength="10" placeholder="半角でご入力ください" required>
@@ -55,4 +55,4 @@ if (errorMessage != null) {
 </body>
 </html>
 
-<%@include file="../../footer.jsp" %>
+<%@include file="../footer.jsp" %>
