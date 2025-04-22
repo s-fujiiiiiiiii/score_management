@@ -18,7 +18,10 @@
 
     <!-- コンテンツエリア -->
     <div class="content-container">
-        <h1>学生管理</h1>
+        <h1>学生管理</h1>  <a href="<c:url value='/student_create'/>">
+    <button type="button">新規登録</button>
+</a>
+
 
         <!-- 学生リストが空の場合のメッセージ -->
         <c:if test="${empty studentList}">
