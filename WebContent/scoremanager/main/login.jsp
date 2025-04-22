@@ -1,5 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8" %>
-<%@include file="../header.jsp" %>
+<%@include file="../../header.jsp" %>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -55,4 +55,4 @@ if (errorMessage != null) {
 </body>
 </html>
 
-<%@include file="../footer.jsp" %>
+<%@include file="../../footer.jsp" %>

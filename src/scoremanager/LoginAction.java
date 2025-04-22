@@ -37,11 +37,11 @@ public class LoginAction extends HttpServlet {
         	request.setAttribute("enteredId", id);
         	if (id == null || id.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("errorMessage", "このフィールドを入力してください");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("main/login.jsp").forward(request, response);
         } else {
         	request.setAttribute("errorMessage", "IDまたはパスワードが確認できませんでした");
             request.setAttribute("enteredId", id); // 入力されたIDを保持
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("main/login.jsp").forward(request, response);
         }
     }
 

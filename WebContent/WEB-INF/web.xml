@@ -9,7 +9,7 @@
 
 	<!-- 初期表示ページの設定 -->
 	<welcome-file-list>
-		<welcome-file>scoremanager/login.jsp</welcome-file>
+		<welcome-file>main/login.jsp</welcome-file>
 	</welcome-file-list>
 
 	<!-- デフォルト設定 -->
