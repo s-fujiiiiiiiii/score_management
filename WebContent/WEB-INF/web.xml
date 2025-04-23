@@ -70,6 +70,16 @@
 		<url-pattern>/main/SubjectListAction</url-pattern>
 	</servlet-mapping>
 
+	<!-- LogoutActionサーブレットの追加 -->
+	<servlet>
+		<servlet-name>LogoutAction</servlet-name>
+		<servlet-class>main.LogoutAction</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>LogoutAction</servlet-name>
+		<servlet-class>main/LogoutAction</servlet-class>
+	</servlet>
 
 
 </web-app>
