@@ -1,11 +1,13 @@
 package main;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import tool.Action;
 
+@WebServlet("/main/LogoutAction")
 public class LogoutAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response

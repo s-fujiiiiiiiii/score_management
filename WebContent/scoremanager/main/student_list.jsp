@@ -40,9 +40,10 @@
 </form>
 
 
-        <a href="<c:url value='/student_create'/>">
+<a href="<c:url value='/scoremanager/main/student_create.jsp'/>">
     <button type="button">新規登録</button>
 </a>
+
 
 
 

@@ -18,11 +18,30 @@
 </div>
 
     <!-- 右コンテンツエリア -->
-    <div class="content-container">
-        <h1>メニュー</h1>
+<!-- 右コンテンツエリア -->
+<div class="content-container">
+    <h1>メニュー</h1>
 
+    <div class="card-container">
+        <!-- 学生管理 -->
+        <div class="card card-red">
+            <a href="<c:url value='/student_list'/>">学生管理</a>
+        </div>
 
+        <!-- 成績管理 -->
+        <div class="card card-green">
+            <p>成績管理</p>
+            <a href="<c:url value='/ScoreInsertAction'/>">成績登録</a><br>
+            <a href="<c:url value='/ScoreReferenceAction'/>">成績参照</a>
+        </div>
+
+        <!-- 科目管理 -->
+        <div class="card card-purple">
+            <a href="<c:url value='/SubjectListAction'/>">科目管理</a>
+        </div>
     </div>
+</div>
+
 </div>
 
 

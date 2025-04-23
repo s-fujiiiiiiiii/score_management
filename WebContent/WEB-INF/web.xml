@@ -59,7 +59,27 @@
 		<url-pattern>/StudentCreateAction.action</url-pattern>
 	</servlet-mapping>
 
+	<!-- SubjectListActionサーブレットの追加 -->
+	<servlet>
+		<servlet-name>SubjectListAction</servlet-name>
+		<servlet-class>main.SubjectListAction</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>SubjectListAction</servlet-name>
+		<url-pattern>/main/SubjectListAction</url-pattern>
+	</servlet-mapping>
+
+	<!-- LogoutActionサーブレットの追加 -->
+	<servlet>
+		<servlet-name>LogoutAction</servlet-name>
+		<servlet-class>main.LogoutAction</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>LogoutAction</servlet-name>
+		<servlet-class>main/LogoutAction</servlet-class>
+	</servlet>
 
 
 </web-app>
