@@ -25,8 +25,10 @@ public class StudentDao extends Dao {
         }
         if ("true".equals(isAttend)) {
             sql.append(" AND IS_ATTEND = TRUE");
+        } else if ("false".equals(isAttend)) {
+            sql.append(" AND IS_ATTEND = FALSE");
         }
-        // "false" のときは絞込条件なしでOK
+
 
 
 

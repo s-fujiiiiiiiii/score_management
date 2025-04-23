@@ -35,12 +35,12 @@
                 </c:forEach>
             </select>
             在学中:
-			<!-- まず false を常に送る -->
+			<!-- 常に false を送る -->
 			<input type="hidden" name="isAttend" value="false" />
-
-			<!-- true が送られる場合のみ checked 状態 -->
 			<input type="checkbox" name="isAttend" value="true"
 			       <c:if test="${param.isAttend == 'true'}">checked</c:if> />
+
+
 		    <input type="submit" value="絞り込む" />
         </form>
 
