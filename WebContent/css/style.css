@@ -50,6 +50,53 @@ body {
     padding-right: 50px;
 }
 
+/* 右側メニューカード全体を横並びに */
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* 各カードの共通スタイル */
+.card {
+    width: 200px;
+    min-height: 120px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+/* 各カードごとの色分け */
+.card-red {
+    background-color: #e57373; /* 赤っぽい */
+}
+
+.card-green {
+    background-color: #81c784; /* 緑っぽい */
+}
+
+.card-purple {
+    background-color: #b39ddb; /* 紫っぽい */
+}
+
+/* カード内リンクのスタイル */
+.card a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+
 .user-info {
     text-align: right;
     margin-right: 30px;
