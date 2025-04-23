@@ -17,11 +17,13 @@ import dao.TestListStudentDao;
 public class TestListAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String studentNo = request.getParameter("studentNo");
+        System.out.println("受け取った学生番号: " + studentNo);
         TestListStudentDao dao = new TestListStudentDao();
         List<TestListStudent> testScores = null;
 
         try {
             testScores = dao.findByStudentNo(studentNo);
+            System.out.println("取得した成績リスト: " + testScores);
         } catch (Exception e) {
             e.printStackTrace();
         }
