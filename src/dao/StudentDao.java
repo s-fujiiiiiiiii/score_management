@@ -96,6 +96,22 @@ public class StudentDao extends Dao {
         return yearList;
     }
 
+    public boolean exists(String studentNumber) {
+        String sql = "SELECT 1 FROM STUDENT WHERE NO = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, studentNumber);
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next(); // データが1件でもあれば重複
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;  // 念のため false を返しておく
+        }
+    }
+
     // 登録
     public boolean insert(Student student) {
 

@@ -12,6 +12,7 @@ public class StudentCreateExecuteAction {
         student.setStudentNumber(studentNum);
         student.setName(studentName);
         student.setClassNum(className);
+        student.setAttend(true);
 
         // DAOを使用してデータベースに登録
         StudentDao dao = new StudentDao();
