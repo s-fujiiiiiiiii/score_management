@@ -72,7 +72,17 @@
                             <td>${STUDENT.studentNumber}</td>
                             <td>${STUDENT.name}</td>
                             <td>${STUDENT.classNum}</td>
-                            <td>${STUDENT.attend ? '○' : '×'}</td>
+                            <td>${STUDENT.attend ? '○' : '×'}
+							<form action="<c:url value='/scoremanager/main/student_update.jsp' />" method="post" style="display:inline;">
+							    <input type="hidden" name="studentNumber" value="${STUDENT.studentNumber}" />
+							    <input type="hidden" name="entYear" value="${STUDENT.entYear}" />
+							    <input type="hidden" name="name" value="${STUDENT.name}" />
+							    <input type="hidden" name="classNum" value="${STUDENT.classNum}" />
+							    <input type="hidden" name="attend" value="${STUDENT.attend}" />
+							    <input type="submit" value="変更" />
+							</form>
+
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
