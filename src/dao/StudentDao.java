@@ -149,4 +149,21 @@ public class StudentDao extends Dao {
 
     }
 
+    public void updateStudent(String studentNumber, String name, String classNum, boolean attend) {
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(
+                 "UPDATE student SET name=?, class_num=?, attend=? WHERE student_number=?")) {
+
+            ps.setString(1, name);
+            ps.setString(2, classNum);
+            ps.setBoolean(3, attend);
+            ps.setString(4, studentNumber);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

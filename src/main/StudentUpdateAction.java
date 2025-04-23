@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -23,8 +24,8 @@ public class StudentUpdateAction extends HttpServlet {
         request.setAttribute("classNum", request.getParameter("classNum"));
         request.setAttribute("attend", request.getParameter("attend"));
 
-        // クラス一覧（仮で固定値。DBから取得する場合はDAOを使ってね）
-        List<String> classList = List.of("A", "B", "C", "D");
+        // クラス一覧（Java8対応：Arrays.asListを使用）
+        List<String> classList = Arrays.asList("A", "B", "C", "D");
         request.setAttribute("classList", classList);
 
         // フォームへフォワード
