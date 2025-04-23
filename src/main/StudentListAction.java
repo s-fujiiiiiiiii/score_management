@@ -35,6 +35,11 @@ public class StudentListAction extends HttpServlet {
             request.setAttribute("classList", classList);
             request.setAttribute("yearList", yearList);  // 年度リストを追加
 
+            // 取得したパラメータをリクエストにセットして保持
+            request.setAttribute("selectedClassNum", classNum); // 選択されたクラス番号
+            request.setAttribute("selectedEntYear", entYear);   // 選択された入学年度
+            request.setAttribute("selectedIsAttend", isAttend); // 在学中チェック状態
+
             // フォワード
             request.getRequestDispatcher("/scoremanager/main/student_list.jsp").forward(request, response);
 

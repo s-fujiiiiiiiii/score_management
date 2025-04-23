@@ -19,33 +19,29 @@
     <!-- コンテンツエリア -->
     <div class="content-container">
         <h1>学生管理</h1>
-<form method="get" action="<c:url value='/student_list' />">
-    入学年度:
-    <select name="entYear">
-        <option value="">-- 全て --</option>
-        <c:forEach var="year" items="${yearList}">
-            <option value="${year}" ${param.entYear == year ? "selected" : ""}>${year}</option>
-        </c:forEach>
-    </select>
-    クラス:
-    <select name="classNum">
-        <option value="">-- 全て --</option>
-        <c:forEach var="c" items="${classList}">
-            <option value="${c}" ${param.classNum == c ? "selected" : ""}>${c}</option>
-        </c:forEach>
-    </select>
-    在学中:
-    <input type="checkbox" name="isAttend" value="true" ${param.isAttend == 'true' ? 'checked' : ''} />
-    <input type="submit" value="絞り込む" />
-</form>
+        <form method="get" action="<c:url value='/student_list' />">
+            入学年度:
+            <select name="entYear">
+                <option value="">-- 全て --</option>
+                <c:forEach var="year" items="${yearList}">
+                    <option value="${year}" ${param.entYear == year || selectedEntYear == year ? "selected" : ""}>${year}</option>
+                </c:forEach>
+            </select>
+            クラス:
+            <select name="classNum">
+                <option value="">-- 全て --</option>
+                <c:forEach var="c" items="${classList}">
+                    <option value="${c}" ${param.classNum == c || selectedClassNum == c ? "selected" : ""}>${c}</option>
+                </c:forEach>
+            </select>
+            在学中:
+            <input type="checkbox" name="isAttend" value="true" ${param.isAttend == 'true' || selectedIsAttend == 'true' ? 'checked' : ''} />
+            <input type="submit" value="絞り込む" />
+        </form>
 
-
-<a href="<c:url value='/scoremanager/main/student_create.jsp'/>">
-    <button type="button">新規登録</button>
-</a>
-
-
-
+        <a href="<c:url value='/scoremanager/main/student_create.jsp'/>">
+            <button type="button">新規登録</button>
+        </a>
 
         <!-- 学生リストが空の場合のメッセージ -->
         <c:if test="${empty studentList}">
@@ -73,15 +69,14 @@
                             <td>${STUDENT.name}</td>
                             <td>${STUDENT.classNum}</td>
                             <td>${STUDENT.attend ? '○' : '×'}
-							<form action="<c:url value='/scoremanager/main/student_update.jsp' />" method="post" style="display:inline;">
-							    <input type="hidden" name="studentNumber" value="${STUDENT.studentNumber}" />
-							    <input type="hidden" name="entYear" value="${STUDENT.entYear}" />
-							    <input type="hidden" name="name" value="${STUDENT.name}" />
-							    <input type="hidden" name="classNum" value="${STUDENT.classNum}" />
-							    <input type="hidden" name="attend" value="${STUDENT.attend}" />
-							    <input type="submit" value="変更" />
-							</form>
-
+                                <form action="<c:url value='/scoremanager/main/student_update.jsp' />" method="post" style="display:inline;">
+                                    <input type="hidden" name="studentNumber" value="${STUDENT.studentNumber}" />
+                                    <input type="hidden" name="entYear" value="${STUDENT.entYear}" />
+                                    <input type="hidden" name="name" value="${STUDENT.name}" />
+                                    <input type="hidden" name="classNum" value="${STUDENT.classNum}" />
+                                    <input type="hidden" name="attend" value="${STUDENT.attend}" />
+                                    <input type="submit" value="変更" />
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>

@@ -27,7 +27,7 @@ public class StudentUpdateExecuteAction extends HttpServlet {
         StudentDao dao = new StudentDao();
         dao.updateStudent(studentNumber, name, classNum, attend);
 
-        // 完了画面へ
-        request.getRequestDispatcher("/scoremanager/main/student_update_done.jsp").forward(request, response);
+        // 完了画面へのリダイレクト
+        response.sendRedirect(request.getContextPath() + "/scoremanager/main/student_update_done.jsp");
     }
 }

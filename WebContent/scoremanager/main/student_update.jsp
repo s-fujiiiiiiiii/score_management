@@ -19,7 +19,7 @@
     <div class="content-container">
         <h1>学生情報の変更</h1>
 
-        <form method="post" action="<c:url value='/student_update' />">
+        <form method="post" action="<c:url value='/student_update_done' />">
             <!-- 入学年度と学生番号は表示のみ -->
             <p>入学年度: <strong>${param.entYear}</strong></p>
             <p>学生番号: <strong>${param.studentNumber}</strong></p>
@@ -30,17 +30,16 @@
             <label>
                 氏名:
                 <input type="text" name="name" value="${param.name}" required />
+                <c:if test="${not empty nameError}">
+                    <p style="color: red;">${nameError}</p>
+                </c:if>
             </label>
             <br><br>
 
-            <!-- クラス -->
+            <!-- クラス (自由入力) -->
             <label>
                 クラス:
-                <select name="classNum">
-                    <c:forEach var="c" items="${classList}">
-                        <option value="${c}" ${param.classNum == c ? "selected" : ""}>${c}</option>
-                    </c:forEach>
-                </select>
+                <input type="text" name="classNum" value="${param.classNum}" />
             </label>
             <br><br>
 
