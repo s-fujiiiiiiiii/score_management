@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<form action="SubjectUpdateAction" method="post">
+<form action="/score_management/main/SubjectUpdateAction" method="post">
     <label for="schoolCd">学校コード:</label>
     <input type="text" id="schoolCd" name="schoolCd" value="${subject.schoolCd}" readonly>
     <br>
