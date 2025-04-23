@@ -27,7 +27,7 @@ public class SubjectUpdateAction extends HttpServlet {
             SubjectDao dao = new SubjectDao();
             dao.update(subject); // 更新処理を実行
 
-            request.getRequestDispatcher("scoremanager/main/subject_update_done.jsp").forward(request, response);
+            request.getRequestDispatcher("/scoremanager/main/subject_update_done.jsp").forward(request, response);
         } catch (Exception e) {
             throw new ServletException(e);
         }
