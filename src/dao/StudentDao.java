@@ -26,6 +26,9 @@ public class StudentDao extends Dao {
         if ("true".equals(isAttend)) {
             sql.append(" AND IS_ATTEND = TRUE");
         }
+        // "false" のときは絞込条件なしでOK
+
+
 
         PreparedStatement statement = connection.prepareStatement(sql.toString());
 
