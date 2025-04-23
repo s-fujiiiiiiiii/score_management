@@ -4,6 +4,20 @@
 <%@include file="../../header.jsp" %>
 <!DOCTYPE html>
 <html lang="ja">
+<div class="main-container">
+    <!-- サイドメニュー -->
+    <div class="menu-container">
+        <ul class="menu-list">
+            <li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
+            <li><a href="<c:url value='/student_list'/>">学生管理</a></li>
+            <li><a href="<c:url value=''/>">成績管理</a></li>
+            <li><a href="<c:url value=''/>">成績登録</a></li>
+            <li><a href="<c:url value=''/>">成績参照</a></li>
+            <li>科目管理</li>
+        </ul>
+    </div>
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +29,9 @@
         }
     </style>
 </head>
-<body>
+<!-- コンテンツエリア -->
+    <div class="content-container">
+
 <h2>ログイン画面</h2>
 <a href="/score_management/scoremanager/main/subject_create.jsp">新規登録</a>
 
@@ -37,6 +53,8 @@
     </c:forEach>
 </table>
 </body>
+</div>
+</div>
 </html>
 
 <%@include file="../../footer.jsp" %>

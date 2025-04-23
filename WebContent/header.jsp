@@ -25,7 +25,7 @@
     %>
             <div class="user-info">
                 <p> <%= teacher.getId() %>様</p>
-                <a href="../scoremanager/main/logout.jsp" class="logout-btn">ログアウト</a>
+                <a href="/score_management/scoremanager/main/logout.jsp" class="logout-btn">ログアウト</a>
             </div>
     <%
         }
