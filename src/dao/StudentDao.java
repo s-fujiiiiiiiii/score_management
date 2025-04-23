@@ -152,7 +152,7 @@ public class StudentDao extends Dao {
     public void updateStudent(String studentNumber, String name, String classNum, boolean attend) {
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                 "UPDATE student SET name=?, class_num=?, attend=? WHERE student_number=?")) {
+                 "UPDATE STUDENT SET NAME=?, CLASS_NUM=?, IS_ATTEND=? WHERE NO=?")) {
 
             ps.setString(1, name);
             ps.setString(2, classNum);

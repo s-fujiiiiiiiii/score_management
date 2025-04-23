@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.StudentDao;
 
-@WebServlet("/student_update")
+@WebServlet("/student_update_done")
 public class StudentUpdateExecuteAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
