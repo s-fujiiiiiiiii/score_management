@@ -35,8 +35,13 @@
                 </c:forEach>
             </select>
             在学中:
-            <input type="checkbox" name="isAttend" value="true" ${param.isAttend == 'true' || selectedIsAttend == 'true' ? 'checked' : ''} />
-            <input type="submit" value="絞り込む" />
+			<!-- 常に false を送る -->
+			<input type="hidden" name="isAttend" value="false" />
+			<input type="checkbox" name="isAttend" value="true"
+			       <c:if test="${param.isAttend == 'true'}">checked</c:if> />
+
+
+		    <input type="submit" value="絞り込む" />
         </form>
 
         <a href="<c:url value='/scoremanager/main/student_create.jsp'/>">
@@ -68,16 +73,17 @@
                             <td>${STUDENT.studentNumber}</td>
                             <td>${STUDENT.name}</td>
                             <td>${STUDENT.classNum}</td>
-                            <td>${STUDENT.attend ? '○' : '×'}
-                                <form action="<c:url value='/scoremanager/main/student_update.jsp' />" method="post" style="display:inline;">
+                            <td>${STUDENT.attend ? '○' : '×'}</td>
+                            <td>    <form action="<c:url value='/scoremanager/main/student_update.jsp' />" method="post" style="display:inline;">
                                     <input type="hidden" name="studentNumber" value="${STUDENT.studentNumber}" />
                                     <input type="hidden" name="entYear" value="${STUDENT.entYear}" />
                                     <input type="hidden" name="name" value="${STUDENT.name}" />
                                     <input type="hidden" name="classNum" value="${STUDENT.classNum}" />
                                     <input type="hidden" name="attend" value="${STUDENT.attend}" />
                                     <input type="submit" value="変更" />
-                                </form>
-                            </td>
+                                </form></td>
+
+
                         </tr>
                     </c:forEach>
                 </tbody>

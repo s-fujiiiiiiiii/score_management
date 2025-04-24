@@ -4,5 +4,5 @@
 
 <div class="footer">
 	<p>&copy; 2023 TNC</p>
-	<P>大原学園</P>>
+	<P>大原学園</P>
 </div>
