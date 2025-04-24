@@ -10,25 +10,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Subject;
 import bean.TestListStudent;
-import dao.TestListStudentDao;
+import dao.StudentDao;
+import dao.SubjectDao;
 
 @WebServlet("/scoremanager/main/TestListAction")
 public class TestListAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String studentNo = request.getParameter("studentNo");
-        System.out.println("受け取った学生番号: " + studentNo);
-        TestListStudentDao dao = new TestListStudentDao();
+        String entYear = request.getParameter("entYear");
+        String classNum = request.getParameter("classNum");
+        String subjectCd = request.getParameter("subjectCd");
+
         List<TestListStudent> testScores = null;
 
         try {
-            testScores = dao.findByStudentNo(studentNo);
-            System.out.println("取得した成績リスト: " + testScores);
+            if (studentNo != null && !studentNo.isEmpty()) {
+                //  学生番号で検索
+                TestListStudentExecuteAction executeAction = new TestListStudentExecuteAction();
+                testScores = executeAction.execute(studentNo);
+            } else if (entYear != null && classNum != null && subjectCd != null) {
+                //  入学年度・クラス・科目で検索
+                TestListSubjectExecuteAction executeAction = new TestListSubjectExecuteAction();
+                testScores = executeAction.execute(subjectCd, classNum, Integer.parseInt(entYear));
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // サーバーコンソールにエラーログ出力
+            request.setAttribute("errorMessage", "検索中にエラーが発生しました。");
         }
 
-        request.setAttribute("testScores", testScores);
+        // リスト取得も `try-catch` で保護
+        try {
+            StudentDao studentDao = new StudentDao();
+            List<String> entYearList = studentDao.getYearList();
+            List<String> classList = studentDao.getClassList();
+
+            SubjectDao subjectDao = new SubjectDao();
+            List<Subject> subjectList = subjectDao.search("");
+
+            request.setAttribute("entYearList", entYearList);
+            request.setAttribute("classList", classList);
+            request.setAttribute("subjectList", subjectList);
+            request.setAttribute("testScores", testScores);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "検索データの取得中にエラーが発生しました。");
+        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/main/test_list.jsp");
         dispatcher.forward(request, response);
     }

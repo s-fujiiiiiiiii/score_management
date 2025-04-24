@@ -7,35 +7,42 @@
     <title>成績一覧</title>
 </head>
 <body>
-    <h2>成績一覧</h2>
+    <h2>成績一覧(科目)</h2>
 
-    <!-- データが存在しない場合の処理 -->
-    <c:if test="${empty testScores}">
-        <p>成績データがありません。</p>
-    </c:if>
+ <!-- 🔹 上段：入学年度・クラス・科目で検索 -->
+<h2>科目情報</h2>
+<form action="/scoremanager/main/TestListAction" method="get">
+    入学年度:
+    <select name="entYear">
+        <c:forEach var="year" items="${entYearList}">
+            <option value="${year}">${year}</option>
+        </c:forEach>
+    </select>
 
-    <!-- データが存在する場合の一覧表示 -->
-    <c:if test="${not empty testScores}">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>学生番号</th>
-                    <th>科目コード</th>
-                    <th>得点</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="testScore" items="${testScores}">
-                <p>${testScore.studentNo} - ${testScore.subjectCd} - ${testScore.point}</p>
-                    <tr>
-                        <td>${testScore.studentNo}</td>
-                        <td>${testScore.subjectCd}</td>
-                        <td>${testScore.point}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </c:if>
+    クラス:
+    <select name="classNum">
+        <c:forEach var="classNum" items="${classList}">
+            <option value="${classNum}">${classNum}</option>
+        </c:forEach>
+    </select>
+
+    科目:
+    <select name="subjectCd">
+        <c:forEach var="subject" items="${subjectList}">
+            <option value="${subject.cd}">${subject.name}</option>
+        </c:forEach>
+    </select>
+
+    <button type="submit">検索</button>
+</form>
+
+<!-- 🔹 下段：学生番号で直接検索 -->
+<h2>学生成績</h2>
+<form action="/scoremanager/main/TestListAction" method="get">
+    学生番号:
+    <input type="text" name="studentNo">
+    <button type="submit">検索</button>
+</form>
 </body>
 </html>
 

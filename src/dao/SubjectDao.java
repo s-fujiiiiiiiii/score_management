@@ -167,4 +167,24 @@ public class SubjectDao extends Dao {
 
         return subject;
     }
-}
+
+        public List<Subject> getAllSubjects() throws Exception {
+            Connection con = getConnection();
+            String sql = "SELECT SCHOOL_CD, CD, NAME FROM SUBJECT";
+            List<Subject> subjects = new ArrayList<>();
+
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    Subject subject = new Subject();
+                    subject.setSchoolCd(rs.getString("SCHOOL_CD")); // 学校コード
+                    subject.setCd(rs.getString("CD")); // 科目コード
+                    subject.setName(rs.getString("NAME")); // 科目名
+                    subjects.add(subject);
+                }
+            }
+            return subjects;
+        }
+ }
+
