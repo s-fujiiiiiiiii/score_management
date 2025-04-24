@@ -15,7 +15,7 @@ import bean.TestListStudent;
 import dao.StudentDao;
 import dao.SubjectDao;
 
-@WebServlet("/scoremanager/main/TestListAction")
+@WebServlet("/main/TestListAction")
 public class TestListAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String studentNo = request.getParameter("studentNo");

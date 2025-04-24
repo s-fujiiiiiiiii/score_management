@@ -11,7 +11,7 @@
 
  <!-- 🔹 上段：入学年度・クラス・科目で検索 -->
 <h2>科目情報</h2>
-<form action="/scoremanager/main/TestListAction" method="get">
+<form action="/score_management/main/TestListAction" method="get">
     入学年度:
     <select name="entYear">
         <c:forEach var="year" items="${entYearList}">
@@ -38,7 +38,7 @@
 
 <!-- 🔹 下段：学生番号で直接検索 -->
 <h2>学生成績</h2>
-<form action="/scoremanager/main/TestListAction" method="get">
+<form action="/score_management/main/TestListAction" method="get">
     学生番号:
     <input type="text" name="studentNo">
     <button type="submit">検索</button>

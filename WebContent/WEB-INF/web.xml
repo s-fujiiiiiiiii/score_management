@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
+<web-app xmlns="https://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
          https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+	version="3.1">
 
 	<!-- 初期表示ページの設定 -->
 	<welcome-file-list>
@@ -80,6 +79,7 @@
 		<servlet-name>LogoutAction</servlet-name>
 		<servlet-class>main/LogoutAction</servlet-class>
 	</servlet>
+
 
 
 </web-app>
