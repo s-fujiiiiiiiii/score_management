@@ -1,14 +1,14 @@
 package bean;
 
 public class Test {
-    private String studentNo;
-    private String subjectCd;
-    private String classNum;
-    private String examRound;
-    private int point;
-    private int entYear; //
+    private String studentNo;  // 学生番号
+    private String subjectCd;  // 科目コード
+    private String classNum;   // クラス番号
+    private int no;            // 試験回数
+    private int point;         // 得点
+    private int entYear;       // 入学年度
 
-
+    // Getter and Setter for 入学年度
     public int getEntYear() {
         return entYear;
     }
@@ -17,6 +17,7 @@ public class Test {
         this.entYear = entYear;
     }
 
+    // Getter and Setter for 学生番号
     public String getStudentNo() {
         return studentNo;
     }
@@ -25,6 +26,7 @@ public class Test {
         this.studentNo = studentNo;
     }
 
+    // Getter and Setter for 科目コード
     public String getSubjectCd() {
         return subjectCd;
     }
@@ -33,6 +35,7 @@ public class Test {
         this.subjectCd = subjectCd;
     }
 
+    // Getter and Setter for クラス番号
     public String getClassNum() {
         return classNum;
     }
@@ -41,14 +44,16 @@ public class Test {
         this.classNum = classNum;
     }
 
-    public String getExamRound() {
-        return examRound;
+    // Getter and Setter for 試験回数
+    public int getNo() {
+        return no;
     }
 
-    public void setExamRound(String examRound) {
-        this.examRound = examRound;
+    public void setNo(int no) {
+        this.no = no;
     }
 
+    // Getter and Setter for 得点
     public int getPoint() {
         return point;
     }

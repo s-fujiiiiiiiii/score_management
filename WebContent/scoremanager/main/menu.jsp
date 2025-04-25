@@ -11,7 +11,7 @@
 		<li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
 		<li><a href="<c:url value='/student_list'/>">学生管理</a></li>
 		<li>成績管理</li>
-		<li><a href="<c:url value=''/>">成績登録</a></li>
+		<li><a href="<c:url value='/TestRegistAction'/>">成績登録</a></li>
 		<li><a href="<c:url value=''/>">成績参照</a></li>
 		<li><a href="<c:url value='/SubjectListAction'/>">科目管理</a></li>
 	</ul>

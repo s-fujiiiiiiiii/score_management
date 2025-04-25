@@ -5,6 +5,8 @@ public class TestListStudent {
     private String subjectCd;
     private String classNum;
     private int point;
+    private String subjectName;
+    private int no;
 
     //  ゲッターとセッターを定義
     public String getStudentNo() {
@@ -37,5 +39,21 @@ public class TestListStudent {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public String getSubjectName(){
+    	return subjectName;
+    }
+
+    public void setSubjectName(String subjectName){
+    	this.subjectName = subjectName;
+    }
+
+    public int getNo(){
+    	return no;
+    }
+
+    public void setNo(int no) {
+    	this.no = no;
     }
 }

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Subject;
-import bean.TestListStudent;
 import dao.StudentDao;
 import dao.SubjectDao;
 
@@ -23,24 +22,34 @@ public class TestListAction extends HttpServlet {
         String classNum = request.getParameter("classNum");
         String subjectCd = request.getParameter("subjectCd");
 
-        List<TestListStudent> testScores = null;
+        List<?> testScores = null;
+
+        System.out.println("リクエスト URL: " + request.getRequestURL());
+        System.out.println("リクエスト QueryString: " + request.getQueryString());
+        System.out.println("リクエストから受け取った studentNo: " + studentNo);
 
         try {
-            if (studentNo != null && !studentNo.isEmpty()) {
-                //  学生番号で検索
+            if (studentNo != null && !studentNo.trim().isEmpty()) {
+                System.out.println("学生番号による検索を開始...");
                 TestListStudentExecuteAction executeAction = new TestListStudentExecuteAction();
                 testScores = executeAction.execute(studentNo);
-            } else if (entYear != null && classNum != null && subjectCd != null) {
-                //  入学年度・クラス・科目で検索
+                request.setAttribute("testType", "student");
+            } else if (entYear != null && classNum != null && subjectCd != null
+                        && !entYear.isEmpty() && !classNum.isEmpty() && !subjectCd.isEmpty()) {
+                System.out.println("科目別検索を開始...");
                 TestListSubjectExecuteAction executeAction = new TestListSubjectExecuteAction();
                 testScores = executeAction.execute(subjectCd, classNum, Integer.parseInt(entYear));
+                request.setAttribute("testType", "subject");
+            } else {
+                System.out.println("初回アクセス時のため、検索を実行しません。");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // サーバーコンソールにエラーログ出力
+            e.printStackTrace();
             request.setAttribute("errorMessage", "検索中にエラーが発生しました。");
         }
 
-        // リスト取得も `try-catch` で保護
+        request.setAttribute("testScores", testScores);
+
         try {
             StudentDao studentDao = new StudentDao();
             List<String> entYearList = studentDao.getYearList();
@@ -52,7 +61,6 @@ public class TestListAction extends HttpServlet {
             request.setAttribute("entYearList", entYearList);
             request.setAttribute("classList", classList);
             request.setAttribute("subjectList", subjectList);
-            request.setAttribute("testScores", testScores);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "検索データの取得中にエラーが発生しました。");
@@ -60,5 +68,7 @@ public class TestListAction extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/main/test_list.jsp");
         dispatcher.forward(request, response);
+        System.out.println("検索結果サイズ: " + (testScores != null ? testScores.size() : "NULL"));
+        System.out.println("testScoresがJSPへ渡される: " + (testScores != null ? testScores.size() : "NULL"));
     }
 }

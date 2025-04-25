@@ -1,49 +1,64 @@
 package bean;
 
-import java.util.Map;
-
 public class TestListSubject {
-    private String subjectCd;            // 科目コード
-    private String subjectName;          // 科目名
-    private Map<Integer, Integer> points; // 得点データ (キー: 学生番号, 値: 得点)
+    private String studentNo;   // 学生番号
+    private String name;        // 氏名
+    private String classNum;    // クラス番号
+    private int entYear;        // 入学年度
+    private int no;             // 試験回数
+    private int point;          // 得点
 
-    // コンストラクタ
-    public TestListSubject() {}
-
-    public TestListSubject(String subjectCd, String subjectName, Map<Integer, Integer> points) {
-        this.subjectCd = subjectCd;
-        this.subjectName = subjectName;
-        this.points = points;
+    // Getter and Setter for 学生番号
+    public String getStudentNo() {
+        return studentNo;
     }
 
-    // ゲッターとセッター
-    public String getSubjectCd() {
-        return subjectCd;
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo;
     }
 
-    public void setSubjectCd(String subjectCd) {
-        this.subjectCd = subjectCd;
+    // Getter and Setter for 氏名
+    public String getName() {
+        return name;
     }
 
-    public String getSubjectName() {
-        return subjectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    // Getter and Setter for クラス番号
+    public String getClassNum() {
+        return classNum;
     }
 
-    public Map<Integer, Integer> getPoints() {
-        return points;
+    public void setClassNum(String classNum) {
+        this.classNum = classNum;
     }
 
-    public void setPoints(Map<Integer, Integer> points) {
-        this.points = points;
+    // Getter and Setter for 入学年度
+    public int getEntYear() {
+        return entYear;
     }
 
-    // デバッグ用 toString()
-    @Override
-    public String toString() {
-        return "TestListSubject [subjectCd=" + subjectCd + ", subjectName=" + subjectName + ", points=" + points + "]";
+    public void setEntYear(int entYear) {
+        this.entYear = entYear;
+    }
+
+    // Getter and Setter for 試験回数
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+
+    // Getter and Setter for 得点
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

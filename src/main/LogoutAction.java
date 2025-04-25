@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import tool.Action;
 
-@WebServlet("/main/LogoutAction")
+@WebServlet("/LogoutAction")
 public class LogoutAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response

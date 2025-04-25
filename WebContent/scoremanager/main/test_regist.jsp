@@ -6,7 +6,6 @@
 
 <form action="/scoremanager/main/TestRegistAction" method="post">
 
-
     入学年度:
     <select name="entYear">
         <c:forEach var="year" items="${entYearList}">
@@ -28,14 +27,14 @@
         </c:forEach>
     </select><br>
 
-    回数 (登録回):
-    <select name="examRound">
+    試験回数:
+    <select name="no">
         <option value="1">1回目</option>
         <option value="2">2回目</option>
         <option value="3">3回目</option>
     </select><br>
 
-    成績入力: <input type="number" name="point" min="0" max="100"><br>
+    成績入力: <input type="number" name="point" min="0" max="100" required><br>
 
     <button type="submit">登録</button>
 

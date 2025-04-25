@@ -13,7 +13,7 @@ public class TestDao extends Dao {
             stmt.setInt(1, test.getEntYear());
             stmt.setString(2, test.getClassNum());
             stmt.setString(3, test.getSubjectCd());
-            stmt.setString(4, test.getExamRound());
+            stmt.setInt(4, test.getNo());
             stmt.setInt(5, test.getPoint());
 
             int rowsInserted = stmt.executeUpdate();

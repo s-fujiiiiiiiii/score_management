@@ -75,10 +75,11 @@
 		<servlet-class>main.LogoutAction</servlet-class>
 	</servlet>
 
-	<servlet>
+	<servlet-mapping>
 		<servlet-name>LogoutAction</servlet-name>
-		<servlet-class>main/LogoutAction</servlet-class>
-	</servlet>
+		<url-pattern>/main/LogoutAction</url-pattern>
+	</servlet-mapping>
+
 
 
 

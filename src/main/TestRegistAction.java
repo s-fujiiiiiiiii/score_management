@@ -8,52 +8,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/main/TestRegistAction")
+import bean.Test;
+import dao.TestDao;
+
+@WebServlet("/TestRegistAction")
 public class TestRegistAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String entYear = request.getParameter("entYear");
-        String classNum = request.getParameter("classNum");
+        String studentNo = request.getParameter("studentNo");
         String subjectCd = request.getParameter("subjectCd");
-        String examRound = request.getParameter("examRound");
+        String classNum = request.getParameter("classNum");
+        String entYear = request.getParameter("entYear");
+        String noStr = request.getParameter("no");
         String pointStr = request.getParameter("point");
 
-        // **未入力チェック**
-        if (entYear == null || classNum == null || subjectCd == null || examRound == null) {
-            request.setAttribute("errorMessage", "入学年度・クラス・科目・回数を選択してください。");
-            request.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(request, response);
-            return;
-        }
-
-        // **得点のバリデーション**
-        int point = -1;
-        if (pointStr != null && !pointStr.isEmpty()) { // ✅ 得点が未入力なら登録しない
-            try {
-                point = Integer.parseInt(pointStr);
-                if (point < 0 || point > 100) {
-                    throw new IllegalArgumentException();
-                }
-            } catch (Exception e) {
-                request.setAttribute("errorMessage", "得点は 0 〜 100 の範囲で入力してください。");
-                request.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(request, response);
-                return;
-            }
-        }
-
-        // **登録処理**
         boolean success = false;
+
         try {
-            TestRegistExecuteAction executeAction = new TestRegistExecuteAction();
-            success = executeAction.execute(entYear, classNum, subjectCd, examRound, point);
+            int no = Integer.parseInt(noStr);
+            int point = Integer.parseInt(pointStr);
+            int year = Integer.parseInt(entYear);
+
+            TestDao dao = new TestDao();
+            Test test = new Test(studentNo, subjectCd, classNum, no, point, year);
+            success = dao.insertTestRecord(test);
         } catch (Exception e) {
             e.printStackTrace();
+            request.setAttribute("errorMessage", "登録中にエラーが発生しました。");
         }
 
         if (success) {
             response.sendRedirect("/scoremanager/main/test_regist_done.jsp");
         } else {
-            request.setAttribute("errorMessage", "成績登録中にエラーが発生しました。");
             request.getRequestDispatcher("/scoremanager/main/test_regist.jsp").forward(request, response);
         }
     }

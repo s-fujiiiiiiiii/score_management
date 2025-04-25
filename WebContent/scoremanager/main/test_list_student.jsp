@@ -1,12 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-</body>
-</html>
+<h2>生徒別成績一覧</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>科目名</th>
+            <th>科目コード</th>
+            <th>回数</th>
+            <th>得点</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="record" items="${testScores}">
+            <tr>
+                <td>${record.subjectName}</td>
+                <td>${record.subjectCd}</td>
+                <td>${record.no}</td>
+                <td>${record.point}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
