@@ -27,10 +27,17 @@
     </style>
 </head>
 <body>
-    <h2>成績一覧</h2>
+	<c:choose>
+	<c:when test="${not empty subjectName and not empty testScores}">
+    <h2>成績一覧(科目)</h2>
+    </c:when>
+    <c:when test="${not empty studentName and not empty testScores}">
+    <h2>成績一覧(学生)</h2>
+    </c:when>
+    </c:choose>
 
     <!-- 🔹 科目別検索フォーム -->
-    <h3>科目別検索</h3>
+    <h3>科目情報</h3>
     <form action="/score_management/main/TestListAction" method="get">
         入学年度:
         <select name="entYear">
@@ -56,8 +63,8 @@
         <button type="submit">検索</button>
     </form>
 
-    <!-- 🔹 生徒別検索フォーム -->
-    <h3>生徒別検索</h3>
+    <!-- 🔹 学生別検索フォーム -->
+    <h3>学生情報</h3>
     <form action="/score_management/main/TestListAction" method="get">
         学生番号:
         <input type="text" name="studentNo" value="${param.studentNo}">
@@ -76,7 +83,7 @@
                         <th>学生番号</th>
                         <th>氏名</th>
                         <c:forEach var="i" begin="1" end="${maxNo}">
-                            <th>${i}回目</th>
+                            <th>${i}回</th>
                         </c:forEach>
                     </tr>
                 </thead>
@@ -106,8 +113,8 @@
                     <tr>
                         <th>科目名</th>
                         <th>科目コード</th>
-                        <th>試験回数</th>
-                        <th>得点</th>
+                        <th>回数</th>
+                        <th>点数</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,7 +132,7 @@
 
         <c:otherwise>
             <c:if test="${not empty param.entYear or not empty param.classNum or not empty param.subjectCd or not empty param.studentNo}">
-                <p>該当するデータがありません。</p>
+                <p>学生情報が存在しませんでした</p>
             </c:if>
         </c:otherwise>
     </c:choose>
