@@ -33,13 +33,11 @@ public class TestListAction extends HttpServlet {
                 System.out.println("学生番号による検索を開始...");
                 TestListStudentExecuteAction executeAction = new TestListStudentExecuteAction();
                 testScores = executeAction.execute(studentNo);
-                request.setAttribute("testType", "student");
             } else if (entYear != null && classNum != null && subjectCd != null
                         && !entYear.isEmpty() && !classNum.isEmpty() && !subjectCd.isEmpty()) {
                 System.out.println("科目別検索を開始...");
                 TestListSubjectExecuteAction executeAction = new TestListSubjectExecuteAction();
                 testScores = executeAction.execute(subjectCd, classNum, Integer.parseInt(entYear));
-                request.setAttribute("testType", "subject");
             } else {
                 System.out.println("初回アクセス時のため、検索を実行しません。");
             }
