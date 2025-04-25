@@ -186,5 +186,20 @@ public class SubjectDao extends Dao {
             }
             return subjects;
         }
+
+        public String getSubjectName(String subjectCd) throws Exception {
+            String subjectName = null;
+            String sql = "SELECT name FROM subject WHERE cd = ?";
+            try (Connection conn = getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, subjectCd);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        subjectName = rs.getString("name");
+                    }
+                }
+            }
+            return subjectName;
+        }
  }
 

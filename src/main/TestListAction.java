@@ -1,6 +1,9 @@
 package main;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Subject;
 import dao.StudentDao;
 import dao.SubjectDao;
+import h2.DatabaseConnection;
 
 @WebServlet("/main/TestListAction")
 public class TestListAction extends HttpServlet {
@@ -23,23 +27,49 @@ public class TestListAction extends HttpServlet {
         String subjectCd = request.getParameter("subjectCd");
 
         List<?> testScores = null;
-
-        System.out.println("リクエスト URL: " + request.getRequestURL());
-        System.out.println("リクエスト QueryString: " + request.getQueryString());
-        System.out.println("リクエストから受け取った studentNo: " + studentNo);
+        String studentName = null; // 生徒名
+        String subjectName = null; // 科目名
+        int maxNo = 1; // 最低1回は確保
 
         try {
             if (studentNo != null && !studentNo.trim().isEmpty()) {
-                System.out.println("学生番号による検索を開始...");
+                System.out.println("生徒別検索を開始...");
+
+                StudentDao studentDao = new StudentDao();
+                studentName = studentDao.getStudentName(studentNo);
+
                 TestListStudentExecuteAction executeAction = new TestListStudentExecuteAction();
                 testScores = executeAction.execute(studentNo);
+
+                request.setAttribute("studentName", studentName);
+                request.setAttribute("studentNo", studentNo);
+
             } else if (entYear != null && classNum != null && subjectCd != null
-                        && !entYear.isEmpty() && !classNum.isEmpty() && !subjectCd.isEmpty()) {
+                    && !entYear.isEmpty() && !classNum.isEmpty() && !subjectCd.isEmpty()) {
                 System.out.println("科目別検索を開始...");
+
+                SubjectDao subjectDao = new SubjectDao();
+                subjectName = subjectDao.getSubjectName(subjectCd);
+
+                // 最大試験回数を取得
+                try (Connection con = DatabaseConnection.getConnection();
+                     PreparedStatement stmt = con.prepareStatement("SELECT MAX(NO) FROM TEST WHERE SUBJECT_CD = ?")) {
+
+                    stmt.setString(1, subjectCd);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            maxNo = rs.getInt(1); // 最大試験回数を取得
+                        }
+                    }
+                }
+
                 TestListSubjectExecuteAction executeAction = new TestListSubjectExecuteAction();
                 testScores = executeAction.execute(subjectCd, classNum, Integer.parseInt(entYear));
+
+                request.setAttribute("subjectName", subjectName);
+                request.setAttribute("maxNo", maxNo);
             } else {
-                System.out.println("初回アクセス時のため、検索を実行しません。");
+                System.out.println("検索条件が不足しているため、検索をスキップします。");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,12 +91,10 @@ public class TestListAction extends HttpServlet {
             request.setAttribute("subjectList", subjectList);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "検索データの取得中にエラーが発生しました。");
+            request.setAttribute("errorMessage", "検索条件リスト取得中にエラーが発生しました。");
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/main/test_list.jsp");
         dispatcher.forward(request, response);
-        System.out.println("検索結果サイズ: " + (testScores != null ? testScores.size() : "NULL"));
-        System.out.println("testScoresがJSPへ渡される: " + (testScores != null ? testScores.size() : "NULL"));
     }
 }

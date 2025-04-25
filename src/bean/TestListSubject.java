@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Map;
+
 public class TestListSubject {
     private String studentNo;   // 学生番号
     private String name;        // 氏名
@@ -7,6 +9,7 @@ public class TestListSubject {
     private int entYear;        // 入学年度
     private int no;             // 試験回数
     private int point;          // 得点
+    private Map<Integer, Integer> points; //試験回数ごとの点数
 
     // Getter and Setter for 学生番号
     public String getStudentNo() {
@@ -60,5 +63,13 @@ public class TestListSubject {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public Map<Integer, Integer> getPoints(){
+    	return points;
+    }
+
+    public void setPoints(Map<Integer, Integer> points) {
+    	this.points = points;
     }
 }

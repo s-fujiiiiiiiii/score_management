@@ -170,4 +170,22 @@ public class StudentDao extends Dao {
         }
     }
 
+ // 学籍番号を基に氏名を取得するメソッド
+    public String getStudentName(String studentNumber) throws Exception {
+        String studentName = null;
+
+        String sql = "SELECT NAME FROM STUDENT WHERE NO = ?"; // 学籍番号で学生を検索
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, studentNumber); // 学籍番号を設定
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    studentName = resultSet.getString("NAME"); // 氏名を取得
+                }
+            }
+        }
+        return studentName;
+    }
+
 }
