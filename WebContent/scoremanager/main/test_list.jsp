@@ -38,6 +38,13 @@ th {
 .no-score {
 	color: #888;
 }
+
+.small-text {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+}
+
 </style>
 	</head>
 
@@ -98,6 +105,8 @@ th {
 					<p class="error-message">このフィールドを入力してください。</p>
 				</c:if>
 			</form>
+
+			<p class="small-text">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください。</p>
 
 			<!-- 🔹 検索結果の表示 -->
 			<c:choose>
