@@ -32,7 +32,7 @@
         <div class="card card-green">
             <p>成績管理</p>
             <a href="<c:url value='/ScoreInsertAction'/>">成績登録</a><br>
-            <a href="<c:url value='/ScoreReferenceAction'/>">成績参照</a>
+            <a href="<c:url value='/main/TestListAction'/>">成績参照</a>
         </div>
 
         <!-- 科目管理 -->
