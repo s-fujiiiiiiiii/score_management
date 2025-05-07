@@ -1,11 +1,11 @@
-<%@page contentType="text/html; charset=UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@include file="../../header.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ include file="../../header.jsp"%>
 <!DOCTYPE html>
 <html lang="ja">
 <div class="main-container">
-	<!-- サイドメニュー -->
+	<!-- 🔹 サイドメニュー -->
 	<div class="menu-container">
 		<ul class="menu-list">
 			<li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
@@ -36,11 +36,12 @@ th {
 }
 
 .no-score {
-	color: #888; /* 未実施の試験点数のスタイリング */
+	color: #888;
 }
 </style>
 	</head>
-	<!-- コンテンツエリア -->
+
+	<!-- 🔹 コンテンツエリア -->
 	<div class="content-container">
 		<body>
 			<c:choose>
@@ -56,15 +57,18 @@ th {
 			<h3>科目情報</h3>
 			<form action="/score_management/main/TestListAction" method="get">
 				入学年度: <select name="entYear">
+					<option value="">---</option>
 					<c:forEach var="year" items="${entYearList}">
 						<option value="${year}" ${year == param.entYear ? 'selected' : ''}>${year}</option>
 					</c:forEach>
 				</select> クラス: <select name="classNum">
+					<option value="">---</option>
 					<c:forEach var="classNum" items="${classList}">
 						<option value="${classNum}"
 							${classNum == param.classNum ? 'selected' : ''}>${classNum}</option>
 					</c:forEach>
 				</select> 科目: <select name="subjectCd">
+					<option value="">---</option>
 					<c:forEach var="subject" items="${subjectList}">
 						<option value="${subject.cd}"
 							${subject.cd == param.subjectCd ? 'selected' : ''}>${subject.name}</option>
@@ -74,11 +78,25 @@ th {
 				<button type="submit">検索</button>
 			</form>
 
+			<!-- 🔹 入力チェック：検索後のみ表示 -->
+			<c:if
+				test="${not empty param.entYear or not empty param.classNum or not empty param.subjectCd}">
+				<c:if
+					test="${empty testScores and (empty param.entYear or empty param.classNum or empty param.subjectCd)}">
+					<p class="error-message">入学年度・クラス・科目を選択してください。</p>
+				</c:if>
+			</c:if>
+
 			<!-- 🔹 学生別検索フォーム -->
 			<h3>学生情報</h3>
 			<form action="/score_management/main/TestListAction" method="get">
 				学生番号: <input type="text" name="studentNo" value="${param.studentNo}">
-				<button type="submit">検索</button>
+				<input type="submit" name="submit" value="検索">
+
+				<!-- 🔹 未入力のチェック：検索が実行された場合のみエラーメッセージを表示 -->
+				<c:if test="${not empty param.submit and empty param.studentNo}">
+					<p class="error-message">このフィールドを入力してください。</p>
+				</c:if>
 			</form>
 
 			<!-- 🔹 検索結果の表示 -->
@@ -141,8 +159,12 @@ th {
 
 				<c:otherwise>
 					<c:if
-						test="${not empty param.entYear or not empty param.classNum or not empty param.subjectCd or not empty param.studentNo}">
-						<p>学生情報が存在しませんでした</p>
+						test="${not empty param.entYear and not empty param.classNum and not empty param.subjectCd and empty testScores}">
+						<p class="error-message">学生情報が存在しませんでした。</p>
+					</c:if>
+
+					<c:if test="${not empty param.studentNo and empty testScores}">
+						<p class="error-message">成績情報が存在しませんでした。</p>
 					</c:if>
 				</c:otherwise>
 			</c:choose>
