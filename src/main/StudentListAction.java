@@ -19,28 +19,27 @@ public class StudentListAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // パラメータ取得
+            // パラメータ取得（true/falseどちらもそのまま保持）
             String entYear = request.getParameter("entYear");
             String classNum = request.getParameter("classNum");
             String isAttend = request.getParameter("isAttend");
 
+
             // DAO呼び出し
             StudentDao studentDao = new StudentDao();
             List<Student> students = studentDao.getStudents(entYear, classNum, isAttend);
-            List<String> classList = studentDao.getClassList(); // クラス一覧取得
-            List<String> yearList = studentDao.getYearList();   // 年度一覧取得
+            List<String> classList = studentDao.getClassList();
+            List<String> yearList = studentDao.getYearList();
 
-            // リクエストスコープに設定
+            // 属性設定
             request.setAttribute("studentList", students);
             request.setAttribute("classList", classList);
-            request.setAttribute("yearList", yearList);  // 年度リストを追加
+            request.setAttribute("yearList", yearList);
 
-            // 取得したパラメータをリクエストにセットして保持
-            request.setAttribute("selectedClassNum", classNum); // 選択されたクラス番号
-            request.setAttribute("selectedEntYear", entYear);   // 選択された入学年度
-            request.setAttribute("selectedIsAttend", isAttend); // 在学中チェック状態
+            request.setAttribute("selectedClassNum", classNum);
+            request.setAttribute("selectedEntYear", entYear);
+            request.setAttribute("selectedIsAttend", isAttend); // ← これもそのまま
 
-            // フォワード
             request.getRequestDispatcher("/scoremanager/main/student_list.jsp").forward(request, response);
 
         } catch (Exception e) {

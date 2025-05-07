@@ -34,11 +34,12 @@
                     <option value="${c}" ${param.classNum == c || selectedClassNum == c ? "selected" : ""}>${c}</option>
                 </c:forEach>
             </select>
-            在学中:
-			<!-- 常に false を送る -->
-			<input type="hidden" name="isAttend" value="false" />
-			<input type="checkbox" name="isAttend" value="true"
-			       <c:if test="${param.isAttend == 'true'}">checked</c:if> />
+			在学状態:
+			<select name="isAttend">
+			    <option value="">-- 全員 --</option>
+			    <option value="true" ${param.isAttend == 'true' ? 'selected' : ''}>在学中</option>
+			    <option value="false" ${param.isAttend == 'false' ? 'selected' : ''}>在学していない</option>
+			</select>
 
 
 		    <input type="submit" value="絞り込む" />
