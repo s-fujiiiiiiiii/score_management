@@ -37,9 +37,10 @@ body {
 .content-container {
     flex-grow: 1;
     padding: 20px;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px - 80px); /* ヘッダー分とフッター分を引く */
     overflow-y: auto;
 }
+
 
 .menu-list {
     list-style-type: none; /* 「・」を消す */
@@ -102,16 +103,15 @@ body {
     margin-right: 30px;
 }
 
-/* フッターエリアの中央揃え */
 .footer {
-    position: fixed;
+    position: relative;
     bottom: 0;
-    left: 0;
     width: 100%;
     background-color: #fff;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
-    z-index: 100;
+    margin-top: 40px; /* フッター上に空白を作る */
 }
+
 
 
