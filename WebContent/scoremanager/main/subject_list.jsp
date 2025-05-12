@@ -32,7 +32,7 @@
 <!-- コンテンツエリア -->
     <div class="content-container">
 
-<h2>ログイン画面</h2>
+<h2>科目管理</h2>
 <a href="/score_management/scoremanager/main/subject_create.jsp">新規登録</a>
 
 <!--  <p>取得した科目数: ${fn:length(subjects)}</p>-->

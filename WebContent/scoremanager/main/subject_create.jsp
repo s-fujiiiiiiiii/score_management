@@ -27,6 +27,7 @@
     <br>
     <button type="submit">登録</button>
 </form>
+	<a href="/score_management/main/SubjectListAction">戻る</a>
 </body>
 </html>
 
