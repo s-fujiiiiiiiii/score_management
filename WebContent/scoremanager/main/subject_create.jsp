@@ -16,14 +16,14 @@
 </head>
 <body>
 <form action="/score_management/main/SubjectCreateAction" method="post">
-    <label for="schoolCd">学校コード:</label>
+    <!-- <label for="schoolCd">学校コード:</label>
     <input type="text" id="schoolCd" name="schoolCd" maxlength="3" required>
-    <br>
+    <br>-->
     <label for="cd">科目コード:</label>
-    <input type="text" id="cd" name="cd" maxlength="3" required>
+    <input type="text" id="cd" name="cd" maxlength="3" placeholder="科目コードを入力してください" required>
     <br>
     <label for="name">科目名:</label>
-    <input type="text" id="name" name="name" maxlength="20" required>
+    <input type="text" id="name" name="name" maxlength="20" placeholder="科目名を入力してください" required>
     <br>
     <button type="submit">登録</button>
 </form>
