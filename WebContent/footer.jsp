@@ -3,6 +3,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div class="footer">
-	<p>&copy; 2023 TNC</p>
+	<p>&copy; 2023 TIC</p>
 	<P>大原学園</P>
 </div>

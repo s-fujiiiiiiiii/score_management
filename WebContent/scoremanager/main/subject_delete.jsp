@@ -4,6 +4,19 @@
 
 <!DOCTYPE html>
 <html lang="ja">
+<div class="main-container">
+    <!-- サイドメニュー -->
+    <div class="menu-container">
+        <ul class="menu-list">
+            <li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
+            <li><a href="<c:url value='/student_list'/>">学生管理</a></li>
+            <li>成績管理</li>
+            <li><a href="<c:url value=''/>">成績登録</a></li>
+            <li><a href="<c:url value='/main/TestListAction'/>">成績参照</a></li>
+            <li><a href="<c:url value='/main/SubjectListAction'/>">科目管理</a></li>
+        </ul>
+    </div>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,8 +47,10 @@ label {
 
 </style>
 </head>
-<body>
 
+<body>
+<!-- コンテンツエリア -->
+    <div class="content-container">
 	<h2>科目情報削除</h2>
 	<%-- データが渡されているか確認 --%>
 	<c:if test="${subject != null}">
@@ -60,7 +75,8 @@ label {
 		<p style="color: red;">エラー: 削除対象のデータが存在しません。</p>
 		<a href="/score_management/main/SubjectListAction">戻る</a>
 	</c:if>
-
+</div>
+</div>
 </body>
 </html>
 
