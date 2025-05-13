@@ -178,5 +178,7 @@ th {
 				</c:otherwise>
 			</c:choose>
 		</body>
+		</div>
 	</div>
 </html>
+<%@ include file="../../footer.jsp"%>
