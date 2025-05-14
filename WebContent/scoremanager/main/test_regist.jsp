@@ -1,46 +1,146 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <%@ include file="/header.jsp" %>
 
-<h2>成績登録</h2>
+<!-- メニューとコンテンツを横並びに配置するコンテナ -->
+<div class="main-container">
 
-<form action="/scoremanager/main/TestRegistAction" method="post">
+	<!-- 左メニューエリア -->
+	<div class="menu-container">
+		<ul class="menu-list">
+			<li><a href="<c:url value='/scoremanager/main/menu.jsp'/>">メニュー</a></li>
+			<li><a href="<c:url value='/student_list'/>">学生管理</a></li>
+			<li>成績管理</li>
+			<li><a href="<c:url value=''/>">成績登録</a></li>
+			<li><a href="<c:url value=''/>">成績参照</a></li>
+			<li><a href="<c:url value='/SubjectListAction'/>">科目管理</a></li>
+		</ul>
+	</div>
 
-    入学年度:
-    <select name="entYear">
-        <c:forEach var="year" items="${entYearList}">
-            <option value="${year}">${year}</option>
-        </c:forEach>
-    </select><br>
+	<div class="content-container">
+		<body>
+			<c:choose>
+				<c:when test="${not empty subjectName and not empty testScores}">
+					<h2>成績一覧(科目)</h2>
+				</c:when>
+				<c:when test="${not empty studentName and not empty testScores}">
+					<h2>成績一覧(学生)</h2>
+				</c:when>
+			</c:choose>
 
-    クラス番号:
-    <select name="classNum">
-        <c:forEach var="classNum" items="${classList}">
-            <option value="${classNum}">${classNum}</option>
-        </c:forEach>
-    </select><br>
+			<!-- 🔹 科目別検索フォーム -->
+			<h3>科目情報</h3>
+			<form action="/score_management/main/TestRegistAction" method="get">
+				入学年度: <select name="entYear">
+					<option value="">---</option>
+					<c:forEach var="year" items="${entYearList}">
+						<option value="${year}" ${year == param.entYear ? 'selected' : ''}>${year}</option>
+					</c:forEach>
+				</select> クラス: <select name="classNum">
+					<option value="">---</option>
+					<c:forEach var="classNum" items="${classList}">
+						<option value="${classNum}"
+							${classNum == param.classNum ? 'selected' : ''}>${classNum}</option>
+					</c:forEach>
+				</select> 科目: <select name="subjectCd">
+					<option value="">---</option>
+					<c:forEach var="subject" items="${subjectList}">
+						<option value="${subject.cd}"
+							${subject.cd == param.subjectCd ? 'selected' : ''}>${subject.name}</option>
+					</c:forEach>
+				</select>
+							<label>回数:
+				<select name="year" required>
+					<option value="">---</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
 
-    科目コード:
-    <select name="subjectCd">
-        <c:forEach var="subject" items="${subjectList}">
-            <option value="${subject.cd}">${subject.name}</option>
-        </c:forEach>
-    </select><br>
+			</label>
+				<button type="submit">検索</button>
+			</form>
 
-    試験回数:
-    <select name="no">
-        <option value="1">1回目</option>
-        <option value="2">2回目</option>
-        <option value="3">3回目</option>
-    </select><br>
+			<!-- 🔹 入力チェック：検索後のみ表示 -->
+			<c:if
+				test="${not empty param.entYear or not empty param.classNum or not empty param.subjectCd}">
+				<c:if
+					test="${empty testScores and (empty param.entYear or empty param.classNum or empty param.subjectCd)}">
+					<p class="error-message">入学年度・クラス・科目を選択してください。</p>
+				</c:if>
+			</c:if>
 
-    成績入力: <input type="number" name="point" min="0" max="100" required><br>
+			<!-- 🔹 検索結果の表示 -->
+			<c:choose>
+				<c:when test="${not empty subjectName and not empty testScores}">
+					<h3>科目: ${subjectName}</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>入学年度</th>
+								<th>クラス</th>
+								<th>学生番号</th>
+								<th>氏名</th>
+								<c:forEach var="i" begin="1" end="${maxNo}">
+									<th>${i}回</th>
+								</c:forEach>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="record" items="${testScores}">
+								<tr>
+									<td>${record.entYear}</td>
+									<td>${record.classNum}</td>
+									<td>${record.studentNo}</td>
+									<td>${record.name}</td>
 
-    <button type="submit">登録</button>
+									<c:forEach var="i" begin="1" end="${maxNo}">
+										<td class="${record.points[i] == null ? 'no-score' : ''}">
+											${record.points[i] != null ? record.points[i] : '-'}</td>
+									</c:forEach>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:when>
 
-    <c:if test="${not empty errorMessage}">
-        <p style="color: red">${errorMessage}</p>
-    </c:if>
-</form>
+				<c:when test="${not empty studentName and not empty testScores}">
+					<h3>氏名: ${studentName} (学籍番号: ${param.studentNo})</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>科目名</th>
+								<th>科目コード</th>
+								<th>回数</th>
+								<th>点数</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="record" items="${testScores}">
+								<tr>
+									<td>${record.subjectName}</td>
+									<td>${record.subjectCd}</td>
+									<td>${record.no}</td>
+									<td>${record.point}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:when>
 
+				<c:otherwise>
+					<c:if
+						test="${not empty param.entYear and not empty param.classNum and not empty param.subjectCd and empty testScores}">
+						<p class="error-message">学生情報が存在しませんでした。</p>
+					</c:if>
+
+					<c:if test="${not empty param.studentNo and empty testScores}">
+						<p class="error-message">成績情報が存在しませんでした。</p>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
+		</body>
+	</div>
+</div>
 <%@ include file="/footer.jsp" %>
