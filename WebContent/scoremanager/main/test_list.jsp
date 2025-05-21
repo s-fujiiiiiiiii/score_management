@@ -40,11 +40,10 @@ th {
 }
 
 .small-text {
-    font-size: 12px;
-    color: #888;
-    margin-top: 10px;
+	font-size: 12px;
+	color: #888;
+	margin-top: 10px;
 }
-
 </style>
 	</head>
 
@@ -74,11 +73,10 @@ th {
 						<option value="${classNum}"
 							${classNum == param.classNum ? 'selected' : ''}>${classNum}</option>
 					</c:forEach>
-				</select> 科目: <select name="subjectCd">
+				</select> 科目： <select name="subject">
 					<option value="">---</option>
 					<c:forEach var="subject" items="${subjectList}">
-						<option value="${subject.cd}"
-							${subject.cd == param.subjectCd ? 'selected' : ''}>${subject.name}</option>
+						<option value="${subject.cd}">${subject.name}</option>
 					</c:forEach>
 				</select>
 
@@ -178,7 +176,7 @@ th {
 				</c:otherwise>
 			</c:choose>
 		</body>
-		</div>
 	</div>
+</div>
 </html>
 <%@ include file="../../footer.jsp"%>

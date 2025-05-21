@@ -80,6 +80,15 @@
 		<url-pattern>/main/LogoutAction</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>TestRegistAction</servlet-name>
+		<servlet-class>main.TestRegistAction</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TestRegistAction</servlet-name>
+		<url-pattern>/main/TestRegistAction</url-pattern>
+	</servlet-mapping>
 
 
 
