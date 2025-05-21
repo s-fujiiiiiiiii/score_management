@@ -1,95 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/javaee
-         https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 
 	<!-- 初期表示ページの設定 -->
-	<welcome-file-list>
-		<welcome-file>scoremanager/login.jsp</welcome-file>
-	</welcome-file-list>
+<welcome-file-list>
+<welcome-file>scoremanager/login.jsp</welcome-file>
+</welcome-file-list>
 
 	<!-- デフォルト設定 -->
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+<servlet-mapping>
+<servlet-name>default</servlet-name>
+<url-pattern>/</url-pattern>
+</servlet-mapping>
 
 	<!-- LoginActionサーブレットの追加 -->
-	<servlet>
-		<servlet-name>LoginAction</servlet-name>
-		<servlet-class>scoremanager.LoginAction</servlet-class>
-	</servlet>
+<servlet>
+<servlet-name>LoginAction</servlet-name>
+<servlet-class>scoremanager.LoginAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>LoginAction</servlet-name>
-		<url-pattern>/scoremanager/LoginAction</url-pattern>
-	</servlet-mapping>
+<servlet-name>LoginAction</servlet-name>
+<url-pattern>/scoremanager/LoginAction</url-pattern>
+</servlet-mapping>
 
 	<!-- SubjectCreateActionサーブレットの追加 -->
-	<servlet>
-		<servlet-name>SubjectCreateAction</servlet-name>
-		<servlet-class>main.SubjectCreateAction</servlet-class>
-	</servlet>
+<servlet>
+<servlet-name>SubjectCreateAction</servlet-name>
+<servlet-class>main.SubjectCreateAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>SubjectCreateAction</servlet-name>
-		<url-pattern>/main/SubjectCreateAction</url-pattern>
-	</servlet-mapping>
+<servlet-name>SubjectCreateAction</servlet-name>
+<url-pattern>/main/SubjectCreateAction</url-pattern>
+</servlet-mapping>
 
 	<servlet>
-		<servlet-name>SubjectDeleteAction</servlet-name>
-		<servlet-class>main.SubjectDeleteAction</servlet-class>
-	</servlet>
+<servlet-name>SubjectDeleteAction</servlet-name>
+<servlet-class>main.SubjectDeleteAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>SubjectDeleteAction</servlet-name>
-		<url-pattern>/main/SubjectDeleteAction</url-pattern>
-	</servlet-mapping>
+<servlet-name>SubjectDeleteAction</servlet-name>
+<url-pattern>/main/SubjectDeleteAction</url-pattern>
+</servlet-mapping>
 
 	<!-- StudentCreateActionサーブレットの設定 -->
-	<servlet>
-		<servlet-name>StudentCreateAction</servlet-name>
-		<servlet-class>main.StudentCreateAction</servlet-class>
-	</servlet>
+<servlet>
+<servlet-name>StudentCreateAction</servlet-name>
+<servlet-class>main.StudentCreateAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>StudentCreateAction</servlet-name>
-		<url-pattern>/StudentCreateAction.action</url-pattern>
-	</servlet-mapping>
+<servlet-name>StudentCreateAction</servlet-name>
+<url-pattern>/StudentCreateAction.action</url-pattern>
+</servlet-mapping>
 
 	<!-- SubjectListActionサーブレットの追加 -->
-	<servlet>
-		<servlet-name>SubjectListAction</servlet-name>
-		<servlet-class>main.SubjectListAction</servlet-class>
-	</servlet>
+<servlet>
+<servlet-name>SubjectListAction</servlet-name>
+<servlet-class>main.SubjectListAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>SubjectListAction</servlet-name>
-		<url-pattern>/main/SubjectListAction</url-pattern>
-	</servlet-mapping>
+<servlet-name>SubjectListAction</servlet-name>
+<url-pattern>/main/SubjectListAction</url-pattern>
+</servlet-mapping>
 
 	<!-- LogoutActionサーブレットの追加 -->
-	<servlet>
-		<servlet-name>LogoutAction</servlet-name>
-		<servlet-class>main.LogoutAction</servlet-class>
-	</servlet>
+<servlet>
+<servlet-name>LogoutAction</servlet-name>
+<servlet-class>main.LogoutAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>LogoutAction</servlet-name>
-		<url-pattern>/main/LogoutAction</url-pattern>
-	</servlet-mapping>
+<servlet-name>LogoutAction</servlet-name>
+<url-pattern>/main/LogoutAction</url-pattern>
+</servlet-mapping>
 
 	<servlet>
-		<servlet-name>TestRegistAction</servlet-name>
-		<servlet-class>main.TestRegistAction</servlet-class>
-	</servlet>
+<servlet-name>TestRegistAction</servlet-name>
+<servlet-class>main.TestRegistAction</servlet-class>
+</servlet>
 
 	<servlet-mapping>
-		<servlet-name>TestRegistAction</servlet-name>
-		<url-pattern>/main/TestRegistAction</url-pattern>
-	</servlet-mapping>
-
+<servlet-name>TestRegistAction</servlet-name>
+<url-pattern>/main/TestRegistAction</url-pattern>
+</servlet-mapping>
 
 
 </web-app>
