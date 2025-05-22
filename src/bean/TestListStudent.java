@@ -1,6 +1,7 @@
 package bean;
 
 public class TestListStudent {
+    private int entYear;      // 入学年度を追加
     private String studentNo;
     private String subjectCd;
     private String classNum;
@@ -8,7 +9,15 @@ public class TestListStudent {
     private String subjectName;
     private int no;
 
-    //  ゲッターとセッターを定義
+    // entYear の getter/setter を追加
+    public int getEntYear() {
+        return entYear;
+    }
+
+    public void setEntYear(int entYear) {
+        this.entYear = entYear;
+    }
+
     public String getStudentNo() {
         return studentNo;
     }
@@ -42,18 +51,18 @@ public class TestListStudent {
     }
 
     public String getSubjectName(){
-    	return subjectName;
+        return subjectName;
     }
 
     public void setSubjectName(String subjectName){
-    	this.subjectName = subjectName;
+        this.subjectName = subjectName;
     }
 
     public int getNo(){
-    	return no;
+        return no;
     }
 
     public void setNo(int no) {
-    	this.no = no;
+        this.no = no;
     }
 }

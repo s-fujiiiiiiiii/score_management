@@ -4,6 +4,6 @@
 
 <h2>成績登録完了</h2>
 <p>成績の登録が完了しました。</p>
-<a href="/scoremanager/main/test_list.jsp">一覧へ戻る</a>
+<a href="<c:url value='/main/TestListAction'/>">一覧へ戻る</a>
 
 <%@ include file="/footer.jsp" %>

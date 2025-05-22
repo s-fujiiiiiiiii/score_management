@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Student;
+import bean.Subject;
 import dao.StudentDao;
+import dao.SubjectDao;
 
 public class TestRegistAction extends HttpServlet {
 
@@ -35,17 +37,22 @@ public class TestRegistAction extends HttpServlet {
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        StudentDao dao = new StudentDao();
+        StudentDao studentDao = new StudentDao();
+        SubjectDao subjectDao = new SubjectDao();
 
         String entYear = request.getParameter("entYear");
         String classNum = request.getParameter("classNum");
 
-        request.setAttribute("entYearList", dao.getYearList());
-        request.setAttribute("classList", dao.getClassList());
-        request.setAttribute("subjectList", dao.getSubjectList());
+        // 入学年度リスト、クラスリストはStudentDaoから取得
+        request.setAttribute("entYearList", studentDao.getYearList());
+        request.setAttribute("classList", studentDao.getClassList());
+
+        // 科目リストはSubjectDaoから取得してセット（SubjectのList）
+        List<Subject> subjectList = subjectDao.getAllSubjects();
+        request.setAttribute("subjectList", subjectList);
 
         if (entYear != null && !entYear.isEmpty() && classNum != null && !classNum.isEmpty()) {
-            List<Student> testScores = dao.getStudents(entYear, classNum, "true");
+            List<Student> testScores = studentDao.getStudents(entYear, classNum, "true");
             request.setAttribute("testScores", testScores);
         }
 

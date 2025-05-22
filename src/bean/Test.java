@@ -8,7 +8,11 @@ public class Test {
     private int point;         // 得点
     private int entYear;       // 入学年度
 
-    // Getter and Setter for 入学年度
+    // ここに追加
+    private String studentName;  // 学生名
+
+    // 既存のgetter/setter...
+
     public int getEntYear() {
         return entYear;
     }
@@ -17,7 +21,6 @@ public class Test {
         this.entYear = entYear;
     }
 
-    // Getter and Setter for 学生番号
     public String getStudentNo() {
         return studentNo;
     }
@@ -26,7 +29,6 @@ public class Test {
         this.studentNo = studentNo;
     }
 
-    // Getter and Setter for 科目コード
     public String getSubjectCd() {
         return subjectCd;
     }
@@ -35,7 +37,6 @@ public class Test {
         this.subjectCd = subjectCd;
     }
 
-    // Getter and Setter for クラス番号
     public String getClassNum() {
         return classNum;
     }
@@ -44,7 +45,6 @@ public class Test {
         this.classNum = classNum;
     }
 
-    // Getter and Setter for 試験回数
     public int getNo() {
         return no;
     }
@@ -53,12 +53,20 @@ public class Test {
         this.no = no;
     }
 
-    // Getter and Setter for 得点
     public int getPoint() {
         return point;
     }
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    // 追加したフィールドのgetter/setter
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }

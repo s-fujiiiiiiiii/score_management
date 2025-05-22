@@ -29,13 +29,14 @@
 			<c:forEach var="cls" items="${classList}">
 				<option value="${cls}" ${param.classNum == cls ? 'selected' : ''}>${cls}</option>
 			</c:forEach>
-		</select><label for="subject">科目：</label> <select name="subject" id="subject"
-			required>
-			<option value="">-----</option>
-			<c:forEach var="subj" items="${subjectList}">
-				<option value="${subj}">${subj}</option>
-			</c:forEach>
-		</select><select name="times">
+		</select><label for="subject">科目：</label>
+<select name="subject" id="subject" required>
+    <option value="">-----</option>
+    <c:forEach var="subj" items="${subjectList}">
+        <option value="${subj.cd}" ${param.subject == subj.cd ? 'selected' : ''}>${subj.name}</option>
+    </c:forEach>
+</select>
+<select name="times">
 			<option value="">-----</option>
 			<c:forEach var="i" begin="1" end="2">
 				<option value="${i}" ${param.times == i ? 'selected' : ''}>${i}</option>

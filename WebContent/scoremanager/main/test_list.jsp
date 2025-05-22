@@ -17,7 +17,7 @@
 </ul>
 </div>
 
-	<head>
+<head>
 <title>成績一覧</title>
 <style>
 table {
@@ -47,7 +47,7 @@ th {
 </style>
 </head>
 
-	<!-- 🔹 コンテンツエリア -->
+<!-- 🔹 コンテンツエリア -->
 <div class="content-container">
 <body>
 <c:choose>
@@ -59,10 +59,10 @@ th {
 </c:when>
 </c:choose>
 
-			<!-- 🔹 科目別検索フォーム -->
+<!-- 🔹 科目別検索フォーム -->
 <h3>科目情報</h3>
 <form action="/score_management/main/TestListAction" method="get">
-				入学年度: <select name="entYear">
+	入学年度: <select name="entYear">
 <option value="">---</option>
 <c:forEach var="year" items="${entYearList}">
 <option value="${year}" ${year == param.entYear ? 'selected' : ''}>${year}</option>
@@ -80,33 +80,33 @@ th {
 </c:forEach>
 </select>
 
-				<button type="submit">検索</button>
+	<button type="submit">検索</button>
 </form>
 
-			<!-- 🔹 入力チェック：検索後のみ表示 -->
+<!-- 🔹 入力チェック：検索後のみ表示 -->
 <c:if
-				test="${not empty param.entYear or not empty param.classNum or not empty param.subjectCd}">
+	test="${not empty param.entYear or not empty param.classNum or not empty param.subjectCd}">
 <c:if
-					test="${empty testScores and (empty param.entYear or empty param.classNum or empty param.subjectCd)}">
+	test="${empty testScores and (empty param.entYear or empty param.classNum or empty param.subjectCd)}">
 <p class="error-message">入学年度・クラス・科目を選択してください。</p>
 </c:if>
 </c:if>
 
-			<!-- 🔹 学生別検索フォーム -->
+<!-- 🔹 学生別検索フォーム -->
 <h3>学生情報</h3>
 <form action="/score_management/main/TestListAction" method="get">
-				学生番号: <input type="text" name="studentNo" value="${param.studentNo}">
-<input type="submit" name="submit" value="検索">
+	学生番号: <input type="text" name="studentNo" value="${param.studentNo}">
+	<input type="submit" name="submit" value="検索">
 
-				<!-- 🔹 未入力のチェック：検索が実行された場合のみエラーメッセージを表示 -->
+	<!-- 🔹 未入力のチェック：検索が実行された場合のみエラーメッセージを表示 -->
 <c:if test="${not empty param.submit and empty param.studentNo}">
 <p class="error-message">このフィールドを入力してください。</p>
 </c:if>
 </form>
 
-			<p class="small-text">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください。</p>
+<p class="small-text">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください。</p>
 
-			<!-- 🔹 検索結果の表示 -->
+<!-- 🔹 検索結果の表示 -->
 <c:choose>
 <c:when test="${not empty subjectName and not empty testScores}">
 <h3>科目: ${subjectName}</h3>
@@ -130,47 +130,73 @@ th {
 <td>${record.studentNo}</td>
 <td>${record.name}</td>
 
-									<c:forEach var="i" begin="1" end="${maxNo}">
+	<c:forEach var="i" begin="1" end="${maxNo}">
 <td class="${record.points[i] == null ? 'no-score' : ''}">
-											${record.points[i] != null ? record.points[i] : '-'}</td>
-</c:forEach>
+	${record.points[i] != null ? record.points[i] : '-'}</td>
+	</c:forEach>
 </tr>
 </c:forEach>
 </tbody>
 </table>
 </c:when>
 
-				<c:when test="${not empty studentName and not empty testScores}">
-<h3>氏名: ${studentName} (学籍番号: ${param.studentNo})</h3>
-<table>
-<thead>
-<tr>
-<th>科目名</th>
-<th>科目コード</th>
-<th>回数</th>
-<th>点数</th>
-</tr>
-</thead>
-<tbody>
-<c:forEach var="record" items="${testScores}">
-<tr>
-<td>${record.subjectName}</td>
-<td>${record.subjectCd}</td>
-<td>${record.no}</td>
-<td>${record.point}</td>
-</tr>
-</c:forEach>
-</tbody>
-</table>
+<c:when test="${not empty studentName and not empty testScores}">
+    <h3>氏名: ${studentName} (学籍番号: ${param.studentNo})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>科目名</th>
+                <th>科目コード</th>
+                <th>回数</th>
+                <th>点数</th>
+                <th>操作</th> <!-- 🔸操作列追加 -->
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="record" items="${testScores}">
+                <tr>
+                    <td>${record.subjectName}</td>
+                    <td>${record.subjectCd}</td>
+                    <td>${record.no}</td>
+                    <td>${record.point}</td>
+                    <td>
+                        <!-- 🔹変更ボタン -->
+                  <form action="${pageContext.request.contextPath}/main/TestUpdateAction" method="get" style="display:inline;">
+
+                            <input type="hidden" name="entYear" value="${record.entYear}">
+                            <input type="hidden" name="classNum" value="${record.classNum}">
+                            <input type="hidden" name="subjectCd" value="${record.subjectCd}">
+                            <input type="hidden" name="studentNo" value="${record.studentNo}">
+                            <input type="hidden" name="examRound" value="${record.no}">
+                            <input type="submit" value="変更">
+                        </form>
+
+                        <!-- 🔹削除ボタン -->
+
+                       <form action="${pageContext.request.contextPath}/main/TestDeleteAction" method="post" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+
+                            <input type="hidden" name="entYear" value="${record.entYear}">
+                            <input type="hidden" name="classNum" value="${record.classNum}">
+                            <input type="hidden" name="subjectCd" value="${record.subjectCd}">
+                            <input type="hidden" name="studentNo" value="${record.studentNo}">
+                            <input type="hidden" name="examRound" value="${record.no}">
+                            <input type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 </c:when>
 
-				<c:otherwise>
+
+<c:otherwise>
 <c:if
-						test="${not empty param.entYear and not empty param.classNum and not empty param.subjectCd and empty testScores}">
+	test="${not empty param.entYear and not empty param.classNum and not empty param.subjectCd and empty testScores}">
 <p class="error-message">学生情報が存在しませんでした。</p>
 </c:if>
 
-					<c:if test="${not empty param.studentNo and empty testScores}">
+	<c:if test="${not empty param.studentNo and empty testScores}">
 <p class="error-message">成績情報が存在しませんでした。</p>
 </c:if>
 </c:otherwise>

@@ -21,20 +21,20 @@ import h2.DatabaseConnection;
 @WebServlet("/main/TestListAction")
 public class TestListAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // パラメータ取得
         String studentNo = request.getParameter("studentNo");
         String entYear = request.getParameter("entYear");
         String classNum = request.getParameter("classNum");
         String subjectCd = request.getParameter("subjectCd");
 
         List<?> testScores = null;
-        String studentName = null; // 生徒名
-        String subjectName = null; // 科目名
-        int maxNo = 1; // 最低1回は確保
+        String studentName = null;
+        String subjectName = null;
+        int maxNo = 1;
 
         try {
             if (studentNo != null && !studentNo.trim().isEmpty()) {
                 System.out.println("生徒別検索を開始...");
-
                 StudentDao studentDao = new StudentDao();
                 studentName = studentDao.getStudentName(studentNo);
 
@@ -51,14 +51,15 @@ public class TestListAction extends HttpServlet {
                 SubjectDao subjectDao = new SubjectDao();
                 subjectName = subjectDao.getSubjectName(subjectCd);
 
-                // 最大試験回数を取得
+                // 最大試験回数取得
                 try (Connection con = DatabaseConnection.getConnection();
                      PreparedStatement stmt = con.prepareStatement("SELECT MAX(NO) FROM TEST WHERE SUBJECT_CD = ?")) {
 
                     stmt.setString(1, subjectCd);
                     try (ResultSet rs = stmt.executeQuery()) {
                         if (rs.next()) {
-                            maxNo = rs.getInt(1); // 最大試験回数を取得
+                            maxNo = rs.getInt(1);
+                            if (maxNo < 1) maxNo = 1; // 最低1回は確保
                         }
                     }
                 }
@@ -68,6 +69,7 @@ public class TestListAction extends HttpServlet {
 
                 request.setAttribute("subjectName", subjectName);
                 request.setAttribute("maxNo", maxNo);
+
             } else {
                 System.out.println("検索条件が不足しているため、検索をスキップします。");
             }

@@ -90,5 +90,35 @@ https://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 <url-pattern>/main/TestRegistAction</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>TestUpdateAction</servlet-name>
+    <servlet-class>main.TestUpdateAction</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>TestUpdateAction</servlet-name>
+    <url-pattern>/main/TestUpdateAction</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>TestUpdateExecuteAction</servlet-name>
+    <servlet-class>main.TestUpdateExecuteAction</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>TestUpdateExecuteAction</servlet-name>
+    <url-pattern>/main/TestUpdateExecuteAction</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>TestDeleteAction</servlet-name>
+    <servlet-class>main.TestDeleteAction</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>TestDeleteAction</servlet-name>
+    <url-pattern>/main/TestDeleteAction</url-pattern>
+</servlet-mapping>
+
 
 </web-app>
