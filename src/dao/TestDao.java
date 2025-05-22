@@ -40,28 +40,18 @@ public class TestDao extends Dao {
         }
     }
 
-    // 点数削除（POINTをNULLに更新） 主キー3項目のみで指定
+    // 点数削除（POINTをNULLに更新）
     public boolean deletePoint(Test test, Connection con) throws Exception {
-        boolean ownConnection = false;
-
-        if (con == null) {
-            con = getConnection(); // Dao クラスの getConnection() を使う
-            ownConnection = true;
-        }
-
-        String sql = "UPDATE TEST SET POINT = NULL WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND NO = ?";
+        String sql = "UPDATE TEST SET POINT = NULL WHERE CLASS_NUM = ? AND SUBJECT_CD = ? AND NO = ? AND STUDENT_NO = ?";
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, test.getStudentNo());
+            stmt.setString(1, test.getClassNum());
             stmt.setString(2, test.getSubjectCd());
             stmt.setInt(3, test.getNo());
+            stmt.setString(4, test.getStudentNo());
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
-        } finally {
-            if (ownConnection && con != null) {
-                con.close(); // 自分で取得したコネクションなら閉じる
-            }
         }
     }
 
@@ -85,7 +75,7 @@ public class TestDao extends Dao {
                         test = new Test();
                         test.setClassNum(classNum);
                         test.setSubjectCd(subjectCd);
-                        test.setStudentNo(studentNo);
+                        test.setStudentNo(rs.getString("STUDENT_NO"));
                         test.setNo(examRound);
                         test.setPoint(rs.getInt("POINT"));
                         test.setStudentName(rs.getString("STUDENT_NAME"));
@@ -96,19 +86,17 @@ public class TestDao extends Dao {
         return test;
     }
 
-    // ←ここから追加↓
-    // 成績レコードを削除するメソッド（ENT_YEARを含む主キー5項目指定）
-    public boolean delete(String entYear, String classNum, String subjectCd, String studentNo, int examRound) throws Exception {
+    // 成績レコードを削除するメソッド（主キー4項目指定）
+    public boolean delete(String classNum, String subjectCd, String studentNo, int examRound) throws Exception {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            String sql = "DELETE FROM TEST WHERE ENT_YEAR = ? AND CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
+            String sql = "DELETE FROM TEST WHERE CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                stmt.setString(1, entYear);
-                stmt.setString(2, classNum);
-                stmt.setString(3, subjectCd);
-                stmt.setString(4, studentNo);
-                stmt.setInt(5, examRound);
+                stmt.setString(1, classNum);
+                stmt.setString(2, subjectCd);
+                stmt.setString(3, studentNo);
+                stmt.setInt(4, examRound);
 
                 int rowsDeleted = stmt.executeUpdate();
                 result = (rowsDeleted > 0);

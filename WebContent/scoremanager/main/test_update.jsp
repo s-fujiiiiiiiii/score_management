@@ -7,7 +7,6 @@
 <body>
     <h2>点数編集</h2>
     <form action="TestUpdateExecuteAction" method="post">
-        <input type="hidden" name="entYear" value="${test.entYear != null ? test.entYear : 0}" />
         <input type="hidden" name="classNum" value="${test.classNum}" />
         <input type="hidden" name="subjectCd" value="${test.subjectCd}" />
         <input type="hidden" name="studentNo" value="${test.studentNo}" />

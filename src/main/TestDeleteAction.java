@@ -17,13 +17,11 @@ public class TestDeleteAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String entYear = request.getParameter("entYear");
         String classNum = request.getParameter("classNum");
         String subjectCd = request.getParameter("subjectCd");
         String studentNo = request.getParameter("studentNo");
         String examRound = request.getParameter("examRound");
 
-        System.out.println("DEBUG: entYear=" + entYear);
         System.out.println("DEBUG: classNum=" + classNum);
         System.out.println("DEBUG: subjectCd=" + subjectCd);
         System.out.println("DEBUG: studentNo=" + studentNo);
@@ -35,8 +33,7 @@ public class TestDeleteAction extends HttpServlet {
             request.getRequestDispatcher("/error.jsp").forward(request, response);
             return;
         }
-        if (entYear == null || entYear.trim().isEmpty() ||
-            classNum == null || classNum.trim().isEmpty() ||
+        if (classNum == null || classNum.trim().isEmpty() ||
             subjectCd == null || subjectCd.trim().isEmpty() ||
             examRound == null || examRound.trim().isEmpty()) {
             request.setAttribute("errorMsg", "必要なパラメータが不足しています。");
@@ -52,7 +49,7 @@ public class TestDeleteAction extends HttpServlet {
             try (Connection con = dao.getConnection()) {
                 con.setAutoCommit(false);  // トランザクション開始
 
-                deleted = dao.delete(entYear, classNum, subjectCd, studentNo, Integer.parseInt(examRound));
+                deleted = dao.delete(classNum, subjectCd, studentNo, Integer.parseInt(examRound));
 
                 if (deleted) {
                     con.commit();
@@ -74,10 +71,9 @@ public class TestDeleteAction extends HttpServlet {
         }
 
         // 削除後は検索条件を保持して一覧に戻る
-        String redirectUrl = String.format("%s/main/TestListAction?studentNo=%s&entYear=%s&classNum=%s&subjectCd=%s",
+        String redirectUrl = String.format("%s/main/TestListAction?studentNo=%s&classNum=%s&subjectCd=%s",
                 request.getContextPath(),
                 studentNo,
-                entYear,
                 classNum,
                 subjectCd);
 
