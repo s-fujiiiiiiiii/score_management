@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Subject;
 import dao.StudentDao;
 import dao.SubjectDao;
 import h2.DatabaseConnection;
@@ -35,15 +36,24 @@ public class TestListAction extends HttpServlet {
         int maxNo = 1;
 
         try {
+            // 🔹 入学年度リストとクラスリストを取得
+            StudentDao studentDao = new StudentDao();
+            List<String> entYearList = studentDao.getEntYearList();
+            request.setAttribute("entYearList", entYearList);
+            List<String> classList = studentDao.getClassList();
+            request.setAttribute("classList", classList);
+
+            System.out.println("DEBUG: 取得した入学年度リストサイズ=" + entYearList.size());
+            System.out.println("DEBUG: 取得したクラスリストサイズ=" + classList.size());
+
             if (studentNo != null && !studentNo.trim().isEmpty()) {
                 System.out.println("生徒別検索を開始...");
-                StudentDao studentDao = new StudentDao();
                 studentName = studentDao.getStudentName(studentNo);
                 TestListStudentExecuteAction executeAction = new TestListStudentExecuteAction();
                 testScores = executeAction.execute(studentNo);
 
                 request.setAttribute("studentName", studentName);
-                request.setAttribute("studentNo", studentNo); // 🔹 修正： studentNo を正しく設定
+                request.setAttribute("studentNo", studentNo);
 
             } else if (entYear != null && classNum != null && subjectCd != null
                     && !entYear.isEmpty() && !classNum.isEmpty() && !subjectCd.isEmpty()) {
@@ -57,7 +67,7 @@ public class TestListAction extends HttpServlet {
                     try (ResultSet rs = stmt.executeQuery()) {
                         if (rs.next()) {
                             maxNo = rs.getInt(1);
-                            if (maxNo < 1) maxNo = 1; // 🔹 最低1回は確保
+                            if (maxNo < 1) maxNo = 1;
                         }
                     }
                 }
@@ -70,6 +80,13 @@ public class TestListAction extends HttpServlet {
             } else {
                 System.out.println("検索条件が不足しているため、検索をスキップします。");
             }
+
+            // 🔹 科目リストを取得してリクエストへセット
+            SubjectDao subjectDao = new SubjectDao();
+            List<Subject> subjectList = subjectDao.getAllSubjects();
+            request.setAttribute("subjectList", subjectList);
+            System.out.println("DEBUG: 取得した科目リストのサイズ=" + subjectList.size());
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "検索中にエラーが発生しました。");

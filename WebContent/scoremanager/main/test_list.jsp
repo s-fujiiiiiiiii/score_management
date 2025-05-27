@@ -50,6 +50,8 @@ th {
 <!-- 🔹 コンテンツエリア -->
 <div class="content-container">
 <body>
+
+
 <c:choose>
 <c:when test="${not empty subjectName and not empty testScores}">
 <h2>成績一覧(科目)</h2>

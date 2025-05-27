@@ -42,7 +42,7 @@ public class TestRegistExecAction extends Action {
         }
 
         // 次の画面表示用データをセット
-        req.setAttribute("entYearList", dao.getYearList());
+        req.setAttribute("entYearList", dao.getEntYearList());
         req.setAttribute("classList", dao.getClassList());
         req.setAttribute("subjectList", dao.getSubjectList());
 

@@ -29,7 +29,7 @@ public class StudentListAction extends HttpServlet {
             StudentDao studentDao = new StudentDao();
             List<Student> students = studentDao.getStudents(entYear, classNum, isAttend);
             List<String> classList = studentDao.getClassList();
-            List<String> yearList = studentDao.getYearList();
+            List<String> yearList = studentDao.getEntYearList();
 
             // 属性設定
             request.setAttribute("studentList", students);

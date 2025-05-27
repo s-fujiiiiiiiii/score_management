@@ -12,93 +12,91 @@ public class StudentDao extends Dao {
 
 	// 学生一覧（絞込あり）
 	public List<Student> getStudents(String entYear, String classNum, String isAttend) throws Exception {
-		List<Student> students = new ArrayList<>();
-		Connection connection = getConnection();
+        List<Student> students = new ArrayList<>();
+        Connection connection = getConnection();
 
-		StringBuilder sql = new StringBuilder("SELECT ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND FROM STUDENT WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT ENT_YEAR, NO, NAME, CLASS_NUM, IS_ATTEND FROM STUDENT WHERE 1=1");
 
-		if (entYear != null && !entYear.isEmpty()) {
-			sql.append(" AND ENT_YEAR = ?");
-		}
-		if (classNum != null && !classNum.isEmpty()) {
-			sql.append(" AND CLASS_NUM = ?");
-		}
-		if ("true".equals(isAttend)) {
-			sql.append(" AND IS_ATTEND = TRUE");
-			// "false" のときはフィルタリングしない（全件表示）
+        if (entYear != null && !entYear.isEmpty()) {
+            sql.append(" AND ENT_YEAR = ?");
+        }
+        if (classNum != null && !classNum.isEmpty()) {
+            sql.append(" AND CLASS_NUM = ?");
+        }
+        if ("true".equals(isAttend)) {
+            sql.append(" AND IS_ATTEND = TRUE");
+        } else if ("false".equals(isAttend)) {
+            sql.append(" AND IS_ATTEND = FALSE");
+        }
 
-		} else if ("false".equals(isAttend)) {
-			sql.append(" AND IS_ATTEND = FALSE");
-		}
+        PreparedStatement statement = connection.prepareStatement(sql.toString());
 
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
+        int index = 1;
+        if (entYear != null && !entYear.isEmpty()) {
+            statement.setInt(index++, Integer.parseInt(entYear));
+        }
+        if (classNum != null && !classNum.isEmpty()) {
+            statement.setString(index++, classNum);
+        }
 
-		int index = 1;
-		if (entYear != null && !entYear.isEmpty()) {
-			statement.setInt(index++, Integer.parseInt(entYear));
-		}
-		if (classNum != null && !classNum.isEmpty()) {
-			statement.setString(index++, classNum);
-		}
+        ResultSet resultSet = statement.executeQuery();
 
-		ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Student student = new Student();
+            student.setEntYear(resultSet.getInt("ENT_YEAR"));
+            student.setStudentNumber(resultSet.getString("NO"));
+            student.setName(resultSet.getString("NAME"));
+            student.setClassNum(resultSet.getString("CLASS_NUM"));
+            student.setAttend(resultSet.getBoolean("IS_ATTEND"));
+            students.add(student);
+        }
 
-		while (resultSet.next()) {
-			Student student = new Student();
-			student.setEntYear(resultSet.getInt("ENT_YEAR"));
-			student.setStudentNumber(resultSet.getString("NO"));
-			student.setName(resultSet.getString("NAME"));
-			student.setClassNum(resultSet.getString("CLASS_NUM"));
-			student.setAttend(resultSet.getBoolean("IS_ATTEND"));
-			students.add(student);
-		}
+        resultSet.close();
+        statement.close();
+        connection.close();
 
-		resultSet.close();
-		statement.close();
-		connection.close();
+        return students;
+    }
 
-		return students;
-	}
 
 	// クラス一覧（重複なし）
 	public List<String> getClassList() throws Exception {
-		List<String> classList = new ArrayList<>();
-		Connection connection = getConnection();
+        List<String> classNums = new ArrayList<>();
+        String sql = "SELECT DISTINCT CLASS_NUM FROM STUDENT ORDER BY CLASS_NUM";
 
-		String sql = "SELECT DISTINCT CLASS_NUM FROM STUDENT ORDER BY CLASS_NUM";
-		PreparedStatement statement = connection.prepareStatement(sql);
-		ResultSet resultSet = statement.executeQuery();
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-		while (resultSet.next()) {
-			classList.add(resultSet.getString("CLASS_NUM"));
-		}
+            while (rs.next()) {
+                classNums.add(rs.getString("CLASS_NUM"));
+            }
+        }
 
-		resultSet.close();
-		statement.close();
-		connection.close();
+        System.out.println("DEBUG: 取得したクラスリストサイズ = " + classNums.size());
+        return classNums;
+    }
 
-		return classList;
-	}
+
 
 	// 年度一覧（重複なし）
-	public List<String> getYearList() throws Exception {
-		List<String> yearList = new ArrayList<>();
-		Connection connection = getConnection();
+	public List<String> getEntYearList() throws Exception {
+        List<String> entYears = new ArrayList<>();
+        String sql = "SELECT DISTINCT ENT_YEAR FROM STUDENT ORDER BY ENT_YEAR DESC";
 
-		String sql = "SELECT DISTINCT ENT_YEAR FROM STUDENT ORDER BY ENT_YEAR";
-		PreparedStatement statement = connection.prepareStatement(sql);
-		ResultSet resultSet = statement.executeQuery();
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-		while (resultSet.next()) {
-			yearList.add(resultSet.getString("ENT_YEAR"));
-		}
+            while (rs.next()) {
+                entYears.add(rs.getString("ENT_YEAR"));
+            }
+        }
 
-		resultSet.close();
-		statement.close();
-		connection.close();
+        System.out.println("DEBUG: 取得した入学年度リストサイズ = " + entYears.size());
+        return entYears;
+    }
 
-		return yearList;
-	}
 
 	public boolean exists(String studentNumber) {
 		String sql = "SELECT 1 FROM STUDENT WHERE NO = ?";

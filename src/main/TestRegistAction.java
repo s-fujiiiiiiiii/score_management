@@ -44,7 +44,7 @@ public class TestRegistAction extends HttpServlet {
         String classNum = request.getParameter("classNum");
 
         // 入学年度リスト、クラスリストはStudentDaoから取得
-        request.setAttribute("entYearList", studentDao.getYearList());
+        request.setAttribute("entYearList", studentDao.getEntYearList());
         request.setAttribute("classList", studentDao.getClassList());
 
         // 科目リストはSubjectDaoから取得してセット（SubjectのList）

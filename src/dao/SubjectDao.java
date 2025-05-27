@@ -168,24 +168,25 @@ public class SubjectDao extends Dao {
         return subject;
     }
 
-        public List<Subject> getAllSubjects() throws Exception {
-            Connection con = getConnection();
-            String sql = "SELECT SCHOOL_CD, CD, NAME FROM SUBJECT";
-            List<Subject> subjects = new ArrayList<>();
+    public List<Subject> getAllSubjects() throws Exception {
+        List<Subject> subjects = new ArrayList<>();
+        String sql = "SELECT SCHOOL_CD, CD, NAME FROM SUBJECT";
 
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                ResultSet rs = stmt.executeQuery();
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-                while (rs.next()) {
-                    Subject subject = new Subject();
-                    subject.setSchoolCd(rs.getString("SCHOOL_CD")); // 学校コード
-                    subject.setCd(rs.getString("CD")); // 科目コード
-                    subject.setName(rs.getString("NAME")); // 科目名
-                    subjects.add(subject);
-                }
+            while (rs.next()) {
+                Subject subject = new Subject();
+                subject.setSchoolCd(rs.getString("SCHOOL_CD"));
+                subject.setCd(rs.getString("CD"));
+                subject.setName(rs.getString("NAME"));
+                subjects.add(subject);
             }
-            return subjects;
         }
+
+        return subjects; // 🔹 取得した科目リストを返す
+    }
 
         public String getSubjectName(String subjectCd) throws Exception {
             String subjectName = null;
