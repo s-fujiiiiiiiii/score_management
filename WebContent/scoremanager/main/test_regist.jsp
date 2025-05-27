@@ -36,7 +36,8 @@
         <option value="${subj.cd}" ${param.subject == subj.cd ? 'selected' : ''}>${subj.name}</option>
     </c:forEach>
 </select>
-<select name="times">
+<label for="time">回数 : </label>
+<select name="time" id="times">
 			<option value="">-----</option>
 			<c:forEach var="i" begin="1" end="2">
 				<option value="${i}" ${param.times == i ? 'selected' : ''}>${i}</option>
