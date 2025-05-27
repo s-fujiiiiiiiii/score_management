@@ -27,7 +27,7 @@ public class TestRegistExecAction extends Action {
         HttpSession session = req.getSession();
         String schoolCd = (String) session.getAttribute("school_cd");
         if (schoolCd == null) {
-            schoolCd = "SCHOOL001";
+            schoolCd = "oom";
             session.setAttribute("school_cd", schoolCd);
         }
 
