@@ -9,20 +9,21 @@ import bean.Test;
 public class TestDao extends Dao {
 
     // 点数登録（INSERT）
-    public boolean save(Test test, Connection con) throws Exception {
-        String sql = "INSERT INTO TEST (CLASS_NUM, SUBJECT_CD, STUDENT_NO, NO, POINT) VALUES (?, ?, ?, ?, ?)";
+	public boolean save(Test test, Connection con) throws Exception {
+	    String sql = "INSERT INTO TEST (CLASS_NUM, SUBJECT_CD, STUDENT_NO, NO, POINT) VALUES (?, ?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, test.getClassNum());
-            stmt.setString(2, test.getSubjectCd());
-            stmt.setString(3, test.getStudentNo());
-            stmt.setInt(4, test.getNo());
-            stmt.setInt(5, test.getPoint());
+	    try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	        stmt.setString(1, test.getClassNum()); // 🔹 ここで CLASS_NUM を正しくセット
+	        stmt.setString(2, test.getSubjectCd());
+	        stmt.setString(3, test.getStudentNo());
+	        stmt.setInt(4, test.getNo());
+	        stmt.setInt(5, test.getPoint());
 
-            int rowsInserted = stmt.executeUpdate();
-            return rowsInserted > 0;
-        }
-    }
+	        int rowsInserted = stmt.executeUpdate();
+	        System.out.println("DEBUG: 挿入された行数 = " + rowsInserted);
+	        return rowsInserted > 0;
+	    }
+	}
 
     // 点数更新（UPDATE）
     public boolean update(Test test, Connection con) throws Exception {
@@ -36,6 +37,7 @@ public class TestDao extends Dao {
             stmt.setString(5, test.getStudentNo());
 
             int rowsUpdated = stmt.executeUpdate();
+            System.out.println("DEBUG: 更新された行数 = " + rowsUpdated);
             return rowsUpdated > 0;
         }
     }
@@ -56,53 +58,54 @@ public class TestDao extends Dao {
     }
 
     // 1件検索（主キーで検索）
-    public Test find(String classNum, String subjectCd, String studentNo, int examRound) throws Exception {
+    public Test find(String classNum, String subjectCd, String studentNo, int No) throws Exception {
         Test test = null;
 
         try (Connection con = getConnection()) {
             String sql = "SELECT t.*, s.NAME AS STUDENT_NAME FROM TEST t " +
                          "JOIN STUDENT s ON t.STUDENT_NO = s.NO " +
-                         "WHERE t.CLASS_NUM = ? AND t.SUBJECT_CD = ? AND t.STUDENT_NO = ? AND t.NO = ?";
+                         "WHERE (t.CLASS_NUM IS NULL OR t.CLASS_NUM = ?) " +
+                         "AND t.SUBJECT_CD = ? AND t.STUDENT_NO = ? AND t.NO = ?";
 
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
                 stmt.setString(1, classNum);
                 stmt.setString(2, subjectCd);
                 stmt.setString(3, studentNo);
-                stmt.setInt(4, examRound);
+                stmt.setInt(4, No);
 
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
                         test = new Test();
-                        test.setClassNum(classNum);
-                        test.setSubjectCd(subjectCd);
+                        test.setClassNum(rs.getString("CLASS_NUM"));
+                        test.setSubjectCd(rs.getString("SUBJECT_CD"));
                         test.setStudentNo(rs.getString("STUDENT_NO"));
-                        test.setNo(examRound);
+                        test.setNo(rs.getInt("NO"));
                         test.setPoint(rs.getInt("POINT"));
                         test.setStudentName(rs.getString("STUDENT_NAME"));
                     }
                 }
             }
         }
+
+        System.out.println("DEBUG: TestDao.find() -> 検索結果: " + (test != null ? "データあり" : "データなし"));
         return test;
     }
 
     // 成績レコードを削除するメソッド（主キー4項目指定）
-    public boolean delete(String entYear, String classNum, String subjectCd, String studentNo, int examRound) throws Exception {
+    public boolean delete(String classNum, String subjectCd, String studentNo, int No) throws Exception {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            // 🔹 正しい H2 用の SQL に修正（エイリアス `t` を削除）
-            String sql = "DELETE FROM TEST WHERE STUDENT_NO IN (SELECT NO FROM STUDENT WHERE ENT_YEAR = ?) "
-                       + "AND CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
+            String sql = "DELETE FROM TEST WHERE CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
 
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                stmt.setString(1, entYear);
-                stmt.setString(2, classNum);
-                stmt.setString(3, subjectCd);
-                stmt.setString(4, studentNo);
-                stmt.setInt(5, examRound);
+                stmt.setString(1, classNum);
+                stmt.setString(2, subjectCd);
+                stmt.setString(3, studentNo);
+                stmt.setInt(4, No);
 
                 int rowsDeleted = stmt.executeUpdate();
+                System.out.println("DEBUG: 削除された行数 = " + rowsDeleted);
                 result = (rowsDeleted > 0);
             }
         }

@@ -21,14 +21,14 @@ public class TestDeleteAction extends HttpServlet {
         String classNum = request.getParameter("classNum");
         String subjectCd = request.getParameter("subjectCd");
         String studentNo = request.getParameter("studentNo");
-        String examRound = request.getParameter("examRound");
+        String No = request.getParameter("No");
 
         // 🔹 デバッグログを追加
         System.out.println("DEBUG: 取得したパラメータ - entYear=" + entYear);
         System.out.println("DEBUG: classNum=" + classNum);
         System.out.println("DEBUG: subjectCd=" + subjectCd);
         System.out.println("DEBUG: studentNo=" + studentNo);
-        System.out.println("DEBUG: examRound=" + examRound);
+        System.out.println("DEBUG: No=" + No);
 
         // 🔹 パラメータチェック
         if (studentNo == null || studentNo.trim().isEmpty()) {
@@ -41,7 +41,7 @@ public class TestDeleteAction extends HttpServlet {
         if (entYear == null || entYear.trim().isEmpty() ||
             classNum == null || classNum.trim().isEmpty() ||
             subjectCd == null || subjectCd.trim().isEmpty() ||
-            examRound == null || examRound.trim().isEmpty()) {
+            No == null || No.trim().isEmpty()) {
             System.out.println("ERROR: 必要なパラメータが不足しています！");
             request.setAttribute("errorMsg", "必要なパラメータが不足しています。");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
@@ -56,7 +56,7 @@ public class TestDeleteAction extends HttpServlet {
             try (Connection con = dao.getConnection()) {
                 con.setAutoCommit(false);  // トランザクション開始
 
-                deleted = dao.delete(entYear, classNum, subjectCd, studentNo, Integer.parseInt(examRound));
+                deleted = dao.delete(classNum, subjectCd, studentNo, Integer.parseInt(No));
 
                 if (deleted) {
                     con.commit();

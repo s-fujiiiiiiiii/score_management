@@ -169,7 +169,7 @@ th {
                             <input type="hidden" name="classNum" value="${record.classNum}">
                             <input type="hidden" name="subjectCd" value="${record.subjectCd}">
                             <input type="hidden" name="studentNo" value="${record.studentNo}">
-                            <input type="hidden" name="examRound" value="${record.no}">
+                            <input type="hidden" name="No" value="${record.no}">
                             <input type="submit" value="変更">
                         </form>
 
@@ -181,7 +181,7 @@ th {
                             <input type="hidden" name="classNum" value="${record.classNum}">
                             <input type="hidden" name="subjectCd" value="${record.subjectCd}">
                             <input type="hidden" name="studentNo" value="${record.studentNo}">
-                            <input type="hidden" name="examRound" value="${record.no}">
+                            <input type="hidden" name="No" value="${record.no}">
                             <input type="submit" value="削除">
                         </form>
                     </td>
