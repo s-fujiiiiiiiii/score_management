@@ -102,7 +102,10 @@ public class TestDao extends Dao {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            String sql = "DELETE FROM TEST WHERE ENT_YEAR = ? AND CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
+            // 🔹 正しい H2 用の SQL に修正（エイリアス `t` を削除）
+            String sql = "DELETE FROM TEST WHERE STUDENT_NO IN (SELECT NO FROM STUDENT WHERE ENT_YEAR = ?) "
+                       + "AND CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
+
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
                 stmt.setString(1, entYear);
                 stmt.setString(2, classNum);

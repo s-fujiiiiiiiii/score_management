@@ -23,22 +23,26 @@ public class TestDeleteAction extends HttpServlet {
         String studentNo = request.getParameter("studentNo");
         String examRound = request.getParameter("examRound");
 
-        System.out.println("DEBUG: entYear=" + entYear);
+        // 🔹 デバッグログを追加
+        System.out.println("DEBUG: 取得したパラメータ - entYear=" + entYear);
         System.out.println("DEBUG: classNum=" + classNum);
         System.out.println("DEBUG: subjectCd=" + subjectCd);
         System.out.println("DEBUG: studentNo=" + studentNo);
         System.out.println("DEBUG: examRound=" + examRound);
 
-        // パラメータチェック
+        // 🔹 パラメータチェック
         if (studentNo == null || studentNo.trim().isEmpty()) {
+            System.out.println("ERROR: 学生番号(studentNo)が指定されていません！");
             request.setAttribute("errorMsg", "学生番号(studentNo)が指定されていません。");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
             return;
         }
+
         if (entYear == null || entYear.trim().isEmpty() ||
             classNum == null || classNum.trim().isEmpty() ||
             subjectCd == null || subjectCd.trim().isEmpty() ||
             examRound == null || examRound.trim().isEmpty()) {
+            System.out.println("ERROR: 必要なパラメータが不足しています！");
             request.setAttribute("errorMsg", "必要なパラメータが不足しています。");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
             return;
@@ -48,7 +52,7 @@ public class TestDeleteAction extends HttpServlet {
             TestDao dao = new TestDao();
             boolean deleted = false;
 
-            // コミット制御を明示するため自前でConnectionを取得
+            // 🔹 コミット制御を明示するため、自前で Connection を取得
             try (Connection con = dao.getConnection()) {
                 con.setAutoCommit(false);  // トランザクション開始
 
@@ -56,8 +60,10 @@ public class TestDeleteAction extends HttpServlet {
 
                 if (deleted) {
                     con.commit();
+                    System.out.println("SUCCESS: 成績情報の削除が成功しました！");
                 } else {
                     con.rollback();
+                    System.out.println("ERROR: 該当する成績情報が見つかりませんでした。");
                 }
             }
 
@@ -67,13 +73,14 @@ public class TestDeleteAction extends HttpServlet {
                 return;
             }
         } catch (Exception e) {
+            System.out.println("ERROR: 削除処理中にエラーが発生しました！");
             e.printStackTrace();
             request.setAttribute("errorMsg", "削除処理中にエラーが発生しました。");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
             return;
         }
 
-        // 削除後は検索条件を保持して一覧に戻る
+        // 🔹 削除後は検索条件を保持して一覧に戻る
         String redirectUrl = String.format("%s/main/TestListAction?studentNo=%s&entYear=%s&classNum=%s&subjectCd=%s",
                 request.getContextPath(),
                 studentNo,
