@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.Subject;
 import dao.SubjectDao;
@@ -15,8 +16,14 @@ import dao.SubjectDao;
 public class SubjectCreateAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+        	HttpSession session = request.getSession();
+        	String schoolCd = (String) session.getAttribute("school_cd");
+        	if (schoolCd == null) {
+        		schoolCd = "oom";
+        		session.setAttribute("school_cd", schoolCd);
+        	}
+
             // フォームからデータを取得
-            String schoolCd = request.getParameter("schoolCd");
             String cd = request.getParameter("cd");
             String name = request.getParameter("name");
 
