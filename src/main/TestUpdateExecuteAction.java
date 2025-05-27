@@ -34,6 +34,11 @@ public class TestUpdateExecuteAction extends HttpServlet {
                 point = Integer.parseInt(pointStr);
             }
 
+            // もし点数の範囲チェックを入れる場合（例）
+            if(point < 0 || point > 100) {
+                throw new ServletException("点数は0から100の範囲で入力してください。");
+            }
+
             Test test = new Test();
             test.setClassNum(classNum);
             test.setSubjectCd(subjectCd);
@@ -50,6 +55,7 @@ public class TestUpdateExecuteAction extends HttpServlet {
             response.sendRedirect("TestListAction");
 
         } catch (Exception e) {
+            // ここでログ出力やエラーページに遷移させる処理を追加しても良いです
             throw new ServletException(e);
         }
     }
