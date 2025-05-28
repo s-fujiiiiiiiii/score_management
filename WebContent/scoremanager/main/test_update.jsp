@@ -32,6 +32,6 @@
     </form>
 
     <br/>
-    <a href="test_list.jsp">戻る</a>
+    <a href="/score_management/main/TestListAction">戻る</a>
 </body>
 </html>
