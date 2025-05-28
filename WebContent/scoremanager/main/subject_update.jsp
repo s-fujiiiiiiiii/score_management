@@ -59,6 +59,10 @@
     <h2>科目情報変更</h2>
 
     <form action="/score_management/main/SubjectUpdateAction" method="post">
+
+    	<input type="hidden" name="cd" value="${subject.cd}">
+    	<input type="hidden" name="schoolCd" value="${subject.schoolCd}">
+
         <label for="cd">科目コード</label>
         <p>${subject.cd}</p>
 
