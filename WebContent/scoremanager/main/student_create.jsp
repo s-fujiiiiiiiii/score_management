@@ -56,8 +56,8 @@
 			<label>クラス<br>
 				<select name="className" required>
 					<option value="">選択してください</option>
-					<option value="A">201</option>
-					<option value="B">202</option>
+					<option value="201">201</option>
+					<option value="202">202</option>
 				</select>
 			</label><br>
 

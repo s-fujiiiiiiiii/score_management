@@ -46,10 +46,21 @@ public class StudentDao extends Dao {
             student.setEntYear(resultSet.getInt("ENT_YEAR"));
             student.setStudentNumber(resultSet.getString("NO"));
             student.setName(resultSet.getString("NAME"));
-            student.setClassNum(resultSet.getString("CLASS_NUM"));
+
+            String dbClassNum = resultSet.getString("CLASS_NUM"); // ← 変数名変更
+
+            if (dbClassNum == null) {
+                System.out.println("ERROR: 取得したクラス番号がNULLです！");
+                dbClassNum = "未登録";
+            }
+
+            System.out.println("DEBUG: 取得したクラス番号 (データベース) = " + dbClassNum);
+            student.setClassNum(dbClassNum);
             student.setAttend(resultSet.getBoolean("IS_ATTEND"));
+
             students.add(student);
         }
+
 
         resultSet.close();
         statement.close();
@@ -123,6 +134,8 @@ public class StudentDao extends Dao {
 				PreparedStatement statement = connection.prepareStatement(sql)) {
 
 			System.out.println("学生の年度: " + student.getEntYear());
+			System.out.println("DEBUG: 登録するクラス番号 = " + student.getClassNum());
+
 
 			statement.setString(1, student.getStudentNumber());
 
@@ -135,6 +148,7 @@ public class StudentDao extends Dao {
 			statement.setBoolean(5, student.isAttend());
 
 			int rowsAffected = statement.executeUpdate();
+			System.out.println("DEBUG: 実際にデータベースへ登録されたクラス番号 = " + student.getClassNum());
 
 			return rowsAffected > 0;
 

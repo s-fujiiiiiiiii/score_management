@@ -5,7 +5,7 @@
     <title>点数編集</title>
 </head>
 <body>
-<p>DEBUG: 取得したテスト情報 - 学生番号: ${test.studentNo}, 科目コード: ${test.subjectCd}, クラス: ${test.classNum}, 試験回数: ${test.no}, 点数: ${test.point}</p>
+<!--  <p>DEBUG: 取得したテスト情報 - 学生番号: ${test.studentNo}, 科目コード: ${test.subjectCd}, クラス: ${test.classNum}, 試験回数: ${test.no}, 点数: ${test.point}</p>-->
 
 <c:if test="${empty test}">
     <p class="error-message">テスト情報が取得できませんでした。</p>

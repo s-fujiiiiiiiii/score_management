@@ -10,10 +10,15 @@ public class TestDao extends Dao {
 
     // 点数登録（INSERT）
 	public boolean save(Test test, Connection con) throws Exception {
-	    String sql = "INSERT INTO TEST (CLASS_NUM, SUBJECT_CD, STUDENT_NO, NO, POINT) VALUES (?, ?, ?, ?, ?)";
+	    // 🔹 `NULL` の場合はデフォルト値を設定
+	    String classNum = test.getClassNum();
+	    if (classNum == null || classNum.isEmpty()) {
+	        classNum = "未登録";  // ← 例えば「未登録」というデフォルト値を設定
+	    }
 
+	    String sql = "INSERT INTO TEST (CLASS_NUM, SUBJECT_CD, STUDENT_NO, NO, POINT) VALUES (?, ?, ?, ?, ?)";
 	    try (PreparedStatement stmt = con.prepareStatement(sql)) {
-	        stmt.setString(1, test.getClassNum()); // 🔹 ここで CLASS_NUM を正しくセット
+	        stmt.setString(1, classNum);
 	        stmt.setString(2, test.getSubjectCd());
 	        stmt.setString(3, test.getStudentNo());
 	        stmt.setInt(4, test.getNo());
@@ -26,21 +31,21 @@ public class TestDao extends Dao {
 	}
 
     // 点数更新（UPDATE）
-    public boolean update(Test test, Connection con) throws Exception {
-        String sql = "UPDATE TEST SET POINT = ? WHERE CLASS_NUM = ? AND SUBJECT_CD = ? AND NO = ? AND STUDENT_NO = ?";
+	public boolean update(Test test, Connection con) throws Exception {
+	    String sql = "UPDATE TEST SET POINT = ? WHERE (CLASS_NUM IS NULL OR CLASS_NUM = ?) AND SUBJECT_CD = ? AND NO = ? AND STUDENT_NO = ?";
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, test.getPoint());
-            stmt.setString(2, test.getClassNum());
-            stmt.setString(3, test.getSubjectCd());
-            stmt.setInt(4, test.getNo());
-            stmt.setString(5, test.getStudentNo());
+	    try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	        stmt.setInt(1, test.getPoint());
+	        stmt.setString(2, test.getClassNum());
+	        stmt.setString(3, test.getSubjectCd());
+	        stmt.setInt(4, test.getNo());
+	        stmt.setString(5, test.getStudentNo());
 
-            int rowsUpdated = stmt.executeUpdate();
-            System.out.println("DEBUG: 更新された行数 = " + rowsUpdated);
-            return rowsUpdated > 0;
-        }
-    }
+	        int rowsUpdated = stmt.executeUpdate();
+	        System.out.println("DEBUG: 更新された行数 = " + rowsUpdated);
+	        return rowsUpdated > 0;
+	    }
+	}
 
     // 点数削除（POINTをNULLに更新）
     public boolean deletePoint(Test test, Connection con) throws Exception {
@@ -96,7 +101,7 @@ public class TestDao extends Dao {
         boolean result = false;
 
         try (Connection con = getConnection()) {
-            String sql = "DELETE FROM TEST WHERE CLASS_NUM = ? AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
+            String sql = "DELETE FROM TEST WHERE (CLASS_NUM IS NULL OR CLASS_NUM = ?) AND SUBJECT_CD = ? AND STUDENT_NO = ? AND NO = ?";
 
             try (PreparedStatement stmt = con.prepareStatement(sql)) {
                 stmt.setString(1, classNum);
