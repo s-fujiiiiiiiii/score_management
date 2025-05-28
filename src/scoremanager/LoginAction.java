@@ -34,17 +34,18 @@ public class LoginAction extends HttpServlet {
         if (teacher != null) {
             session.setAttribute("teacher", teacher);
             request.getRequestDispatcher("/scoremanager/main/menu.jsp").forward(request, response);
-        } else
-        	request.setAttribute("enteredId", id);
-        	if (id == null || id.isEmpty() || password == null || password.isEmpty()) {
-            request.setAttribute("errorMessage", "このフィールドを入力してください");
-            request.getRequestDispatcher("/scoremanager/login.jsp").forward(request, response);
         } else {
-        	request.setAttribute("errorMessage", "IDまたはパスワードが確認できませんでした");
-            request.setAttribute("enteredId", id); // 入力されたIDを保持
-            request.getRequestDispatcher("/scoremanager/login.jsp").forward(request, response);
+            request.setAttribute("enteredId", id);
+            if (id == null || id.isEmpty() || password == null || password.isEmpty()) {
+                request.setAttribute("errorMessage", "このフィールドを入力してください");
+                request.getRequestDispatcher("/scoremanager/login.jsp").forward(request, response);
+            } else {
+                request.setAttribute("errorMessage", "IDまたはパスワードが確認できませんでした");
+                request.setAttribute("enteredId", id); // 入力されたIDを保持
+                request.getRequestDispatcher("/scoremanager/login.jsp").forward(request, response);
+            }
         }
+
+
     }
-
-
 }
