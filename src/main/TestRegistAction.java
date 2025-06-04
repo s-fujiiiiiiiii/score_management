@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Student;
-import bean.Subject;
 import dao.StudentDao;
 import dao.SubjectDao;
 
@@ -40,20 +39,36 @@ public class TestRegistAction extends HttpServlet {
         StudentDao studentDao = new StudentDao();
         SubjectDao subjectDao = new SubjectDao();
 
+        // フォームからの値を取得
         String entYear = request.getParameter("entYear");
         String classNum = request.getParameter("classNum");
+        String subject = request.getParameter("subject");
+        String noParam = request.getParameter("no");
 
-        // 入学年度リスト、クラスリストはStudentDaoから取得
+        // セレクトボックス用データをセット（常に設定）
         request.setAttribute("entYearList", studentDao.getEntYearList());
         request.setAttribute("classList", studentDao.getClassList());
+        request.setAttribute("subjectList", subjectDao.getAllSubjects());
 
-        // 科目リストはSubjectDaoから取得してセット（SubjectのList）
-        List<Subject> subjectList = subjectDao.getAllSubjects();
-        request.setAttribute("subjectList", subjectList);
+        // **検索ボタン (`name="search"`) が押された場合のみ処理を実行**
+        if (request.getParameter("search") != null) {
+            // 入学年度、クラス、科目、回数のいずれかが未入力の場合
+            if (entYear == null || entYear.isEmpty() ||
+                classNum == null || classNum.isEmpty() ||
+                subject == null || subject.isEmpty() ||
+                noParam == null || noParam.isEmpty()) {
 
-        if (entYear != null && !entYear.isEmpty() && classNum != null && !classNum.isEmpty()) {
+                request.setAttribute("message", "入学年度とクラスと科目と回数を選択してください");
+                return "test_regist.jsp";
+            }
+
+            // 成績リストを取得
             List<Student> testScores = studentDao.getStudents(entYear, classNum, "true");
-            request.setAttribute("testScores", testScores);
+            if (testScores == null || testScores.isEmpty()) {
+                request.setAttribute("message", "該当する成績がありません");
+            } else {
+                request.setAttribute("testScores", testScores);
+            }
         }
 
         return "test_regist.jsp";
