@@ -114,4 +114,185 @@ body {
 }
 
 
+// 学生登録ページ
+/* 全体の基本スタイル */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #fafafa;
+}
+
+/* コンテナのレイアウト（横並び） */
+.main-container {
+  display: flex;
+}
+
+/* メニュー（左側） */
+.menu-container {
+  width: 200px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  min-height: 100vh;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list li {
+  margin-bottom: 12px;
+}
+
+.menu-list a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.menu-list li:first-child {
+  font-weight: bold;
+}
+
+/* コンテンツエリア（右側） */
+.content-container {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #fff;
+}
+
+/* タイトル */
+.content-container h1 {
+  font-size: 24px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+/* フォームスタイル */
+.student-form {
+  max-width: 500px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* エラーメッセージ */
+.error-message {
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+/* 送信ボタン */
+.submit-button {
+  background-color: #444;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 戻るリンク */
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+// 登録完了
+/* 全体レイアウトは共通のまま */
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* メイン横並び */
+.main-container {
+  display: flex;
+}
+
+/* 左メニュー */
+.menu-container {
+  width: 200px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  min-height: 100vh;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-list li {
+  margin-bottom: 12px;
+}
+
+.menu-list a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.menu-list li:first-child {
+  font-weight: bold;
+}
+
+/* 右コンテンツ */
+.content-container {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #fff;
+}
+
+/* 見出し（①） */
+.content-container h1 {
+  font-size: 24px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+/* 成功メッセージ（②） */
+.success {
+  background-color: #a3d9a5;
+  color: #1c5e1c;
+  padding: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: fit-content;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+/* 戻る・学生一覧リンク（③④） */
+.return a {
+  display: inline-block;
+  margin-right: 20px;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.return a:hover {
+  text-decoration: underline;
+}
 
