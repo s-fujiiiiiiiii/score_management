@@ -22,28 +22,65 @@ public class TestUpdateExecuteAction extends HttpServlet {
             String subjectCd = request.getParameter("subjectCd");
             String studentNo = request.getParameter("studentNo");
 
-            String examRoundStr = request.getParameter("examRound");
-            int examRound = 0;
-            if (examRoundStr != null && !examRoundStr.isEmpty()) {
-                examRound = Integer.parseInt(examRoundStr);
+            String NoStr = request.getParameter("No");
+            int No = 0;
+            if (NoStr != null && !NoStr.isEmpty()) {
+                No = Integer.parseInt(NoStr);
             }
 
             String pointStr = request.getParameter("point");
             int point = 0;
-            if (pointStr != null && !pointStr.isEmpty()) {
+
+            // バリデーション① 数値チェック
+            try {
                 point = Integer.parseInt(pointStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("errorMessage", "点数は数値で入力してください");
+
+                // 🔁 DBから再取得して氏名なども含める
+                TestDao dao = new TestDao();
+                Test test = dao.find(classNum, subjectCd, studentNo, No);
+                if (test == null) {
+                    test = new Test(); // 万一該当データがなければ空オブジェクトでフォールバック
+                    test.setClassNum(classNum);
+                    test.setSubjectCd(subjectCd);
+                    test.setStudentNo(studentNo);
+                    test.setNo(No);
+                }
+                test.setPoint(0); // 無効値の場合でも0を表示させておく
+
+                request.setAttribute("test", test);
+                request.getRequestDispatcher("/scoremanager/main/test_update.jsp").forward(request, response);
+                return;
             }
 
-            // もし点数の範囲チェックを入れる場合（例）
-            if(point < 0 || point > 100) {
-                throw new ServletException("点数は0から100の範囲で入力してください。");
+            // バリデーション② 0〜100の範囲チェック
+            if (point < 0 || point > 100) {
+                request.setAttribute("errorMessage", "点数は 0～100 の範囲で入力してください");
+
+                // 🔁 DBから再取得して氏名なども含める
+                TestDao dao = new TestDao();
+                Test test = dao.find(classNum, subjectCd, studentNo, No);
+                if (test == null) {
+                    test = new Test();
+                    test.setClassNum(classNum);
+                    test.setSubjectCd(subjectCd);
+                    test.setStudentNo(studentNo);
+                    test.setNo(No);
+                }
+                test.setPoint(point); // 入力された値を表示用にセット
+
+                request.setAttribute("test", test);
+                request.getRequestDispatcher("/scoremanager/main/test_update.jsp").forward(request, response);
+                return;
             }
 
+            // 正常時：更新処理
             Test test = new Test();
             test.setClassNum(classNum);
             test.setSubjectCd(subjectCd);
             test.setStudentNo(studentNo);
-            test.setNo(examRound);
+            test.setNo(No);
             test.setPoint(point);
 
             TestDao dao = new TestDao();
@@ -55,7 +92,6 @@ public class TestUpdateExecuteAction extends HttpServlet {
             response.sendRedirect("TestListAction");
 
         } catch (Exception e) {
-            // ここでログ出力やエラーページに遷移させる処理を追加しても良いです
             throw new ServletException(e);
         }
     }

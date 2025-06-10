@@ -39,7 +39,11 @@ public class TestUpdateAction extends HttpServlet {
         try {
             TestDao dao = new TestDao();
             Test test = dao.find(classNum, subjectCd, studentNo, No);
-
+            if (test == null) {
+                request.setAttribute("errorMessage", "テスト情報が取得できませんでした。");
+            } else {
+                request.setAttribute("test", test);
+            }
             System.out.println("DEBUG: 取得したテスト情報 -> 学生番号=" + studentNo
                 + ", 科目コード=" + subjectCd + ", クラス番号=" + classNum + ", 試験回数=" + No);
             System.out.println("DEBUG: test = " + (test != null ? "データあり" : "データなし"));
