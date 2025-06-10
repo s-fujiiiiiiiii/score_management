@@ -18,7 +18,7 @@ import tool.Action;
 	        String entYear = req.getParameter("entYear");
 	        String classNum = req.getParameter("classNum");
 	        String subject  = req.getParameter("subject");
-	        int    times    = Integer.parseInt(req.getParameter("times"));
+	        int    no    = Integer.parseInt(req.getParameter("no"));
 
 	        String[] studentNumbers = req.getParameterValues("studentNumber");
 	        String[] scores         = req.getParameterValues("score");
@@ -37,7 +37,7 @@ import tool.Action;
 	            if (scores[i] != null && !scores[i].isEmpty()) {
 	                int score = Integer.parseInt(scores[i]);
 	                // schoolCd を含めて呼び出し
-	                dao.insertScore(studentNumbers[i], subject, times, score, schoolCd);
+	                dao.insertScore(studentNumbers[i], subject, no, score, schoolCd);
 	            }
 	        }
 

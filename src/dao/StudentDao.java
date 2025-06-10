@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.Student;
+import bean.Subject;
 
 public class StudentDao extends Dao {
 
@@ -224,14 +225,18 @@ public class StudentDao extends Dao {
 	    }
 	}
 
-	public List<String> getSubjectList() throws Exception {
-		String sql = "SELECT CD FROM SUBJECT ORDER BY CD";
-		List<String> list = new ArrayList<>();
+	public List<Subject> getSubjectList() throws Exception {
+		String sql = "SELECT CD, NAME FROM SUBJECT ORDER BY CD";
+		List<Subject> list = new ArrayList<>();
 		try (Connection con = getConnection();
 				PreparedStatement ps = con.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery()) {
-			while (rs.next())
-				list.add(rs.getString(1));
+			while (rs.next()) {
+			    Subject subject = new Subject();
+			    subject.setCd(rs.getString("CD"));
+			    subject.setName(rs.getString("NAME")); // NAMEをセット
+			    list.add(subject);
+			}
 		}
 		return list;
 	}
