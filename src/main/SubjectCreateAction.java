@@ -14,7 +14,8 @@ import dao.SubjectDao;
 
 @WebServlet("/SubjectCreateAction")
 public class SubjectCreateAction extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
         	HttpSession session = request.getSession();
         	String schoolCd = (String) session.getAttribute("school_cd");

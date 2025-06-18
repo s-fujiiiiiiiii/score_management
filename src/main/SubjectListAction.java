@@ -14,7 +14,8 @@ import dao.SubjectDao;
 
 @WebServlet("/SubjectListAction")
 public class SubjectListAction extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             SubjectDao dao = new SubjectDao();
             List<Subject> subjects = dao.search(""); // 空文字で全科目を検索

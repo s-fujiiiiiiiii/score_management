@@ -9,6 +9,7 @@ import tool.Action;
 
 @WebServlet("/LogoutAction")
 public class LogoutAction extends Action {
+	@Override
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {

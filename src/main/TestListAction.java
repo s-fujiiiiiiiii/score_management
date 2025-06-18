@@ -20,7 +20,8 @@ import h2.DatabaseConnection;
 
 @WebServlet("/main/TestListAction")
 public class TestListAction extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 🔹 パラメータ取得
         String studentNo = request.getParameter("studentNo");
         String entYear = request.getParameter("entYear");

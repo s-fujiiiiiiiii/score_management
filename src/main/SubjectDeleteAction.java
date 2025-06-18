@@ -12,7 +12,8 @@ import dao.SubjectDao;
 
 @WebServlet("/SubjectDeleteAction")
 public class SubjectDeleteAction extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
         	String schoolCd = request.getParameter("schoolCd");
         	String cd = request.getParameter("cd");

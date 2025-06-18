@@ -14,7 +14,8 @@ import dao.TeacherDao;
 
 @WebServlet("/login")
 public class LoginAction extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 

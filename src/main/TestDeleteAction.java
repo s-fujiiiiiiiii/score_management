@@ -14,7 +14,8 @@ public class TestDeleteAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // POSTメソッドで削除処理を行う
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         String entYear = request.getParameter("entYear");

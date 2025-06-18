@@ -13,7 +13,8 @@ import dao.SubjectDao;
 
 @WebServlet("/main/SubjectUpdateConfirmAction")
 public class SubjectUpdateConfirmAction extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String schoolCd = request.getParameter("schoolCd");
             String cd = request.getParameter("cd");
